@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Clinical ADHD Behavioral Report</title>
+<link rel="stylesheet" href="{% static 'css/report_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="report-section py-5 mt-5 mb-5" id="doctor-report" onload="generateAndSavePDF()">
+<div class="container">
+<div class="report-card doctor-report">
+
+<!-- ================= HEADER ================= -->
+<div class="report-top">
+    <h2>AI-Assisted ADHD Behavioral Analysis Report</h2>
+</div>
+
+<!-- ================= PATIENT INFO ================= -->
+<div class="info-grid mt-4">
+    <div><strong>Session ID:</strong> {{ session.id }}</div>
+    <div><strong>Name:</strong> {{ user.full_name }}</div>
+    <div><strong>Gender:</strong> {{ gender }}</div>
+    <div><strong>Age:</strong> {{ session.age_at_assessment }}</div>
+    <div><strong>Blood Group:</strong> {{ blood_group }}</div>
+    <div><strong>Phone:</strong> {{ phone }}</div>
+    <div><strong>Email:</strong> {{ email }}</div>
+    <div><strong>Assessment Date:</strong> {{ report_date }}</div>
+</div>
+
+<hr>
+
+<!-- ================= AI CLASSIFICATION ================= -->
+<h3>AI Severity Classification</h3>
+
+<table class="report-table">
+    <tr>
+        <th>Severity Level Code</th>
+        <th>Severity Category</th>
+        <th>Result</th>
+        <th>Clinical Interpretation</th>
+    </tr>
+    <tr>
+        <td>Level {{ severity_level_number }}</td>
+        <td>{{ severity_label }}</td>
+        <td>
+            {% if severity_level_number == 0 %}
+                <span class="text-success">Negative</span>
+            {% else %}
+                <span class="text-danger">Positive</span>
+            {% endif %}
+        </td>
+        <td>
+            Behavioral patterns consistent with {{ severity_label|lower }}
+            ADHD expression based on multi-domain AI evaluation.
+        </td>
+    </tr>
+</table>
+
+<hr>
+
+<!-- ================= DOMAIN TABLE ================= -->
+<h3>Self-Reported Behavioral Domains</h3>
+<table class="report-table">
+<tr>
+    <th>Domain</th>
+    <th>Score (%)</th>
+    <th>Reference Threshold</th>
+</tr>
+<tr>
+    <td>Inattention</td>
+    <td>{{ inattention_pct }}</td>
+    <td>> 60% = Elevated</td>
+</tr>
+<tr>
+    <td>Hyperactivity</td>
+    <td>{{ hyperactivity_pct }}</td>
+    <td>> 60% = Elevated</td>
+</tr>
+<tr>
+    <td>Impulsivity</td>
+    <td>{{ impulsivity_pct }}</td>
+    <td>> 60% = Elevated</td>
+</tr>
+</table>
+
+<hr>
+
+<!-- ================= OBJECTIVE COGNITIVE ================= -->
+<h3>Objective Cognitive Performance</h3>
+<table class="report-table">
+<tr>
+    <th>Metric</th>
+    <th>Result</th>
+    <th>Reference</th>
+</tr>
+<tr>
+    <td>Attention Accuracy</td>
+    <td>{{ attention_accuracy }}%</td>
+    <td>> 80% Optimal</td>
+</tr>
+<tr>
+    <td>False Press Rate</td>
+    <td>{{ false_press_rate }}%</td>
+    <td>< 5% Optimal</td>
+</tr>
+<tr>
+    <td>Reaction Time</td>
+    <td>{{ reaction_time }} ms</td>
+    <td>300–500 ms Normal</td>
+</tr>
+<tr>
+    <td>Memory Drop (L1-L3)</td>
+    <td>{{ memory_drop }}</td>
+    <td>< 20 Normal</td>
+</tr>
+<tr>
+    <td>Avg Completion Time</td>
+    <td>{{ avg_completion_time }} sec</td>
+    <td>Lower = Better</td>
+</tr>
+</table>
+
+<hr>
+
+<!-- ================= CLINICAL NOTE ================= -->
+<h3>Clinical Advisory</h3>
+<p>
+This AI-based assessment is a structured behavioral screening system.
+It does not establish a clinical diagnosis. A licensed psychiatrist,
+neurologist, or clinical psychologist should perform comprehensive
+evaluation before diagnostic confirmation.
+</p>
+
+<!-- ================= DOWNLOAD BUTTON ================= -->
+<div class="print-section">
+    <button class="report-btn btn btn-primary" onclick="generateAndSavePDF()">
+        Download ADHD Report (PDF)
+    </button>
+</div>
+
+</div>
+</div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+async function generateAndSavePDF() {
+
+    const { jsPDF } = window.jspdf;
+    const reportElement = document.getElementById("doctor-report");
+
+    // Save original width
+    const originalWidth = reportElement.style.width;
+
+    // Force A4 width in px (1080px)
+    reportElement.style.width = "1080px";
+
+    const canvas = await html2canvas(reportElement, {
+        scale: 3,
+        useCORS: true
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let position = 0;
+    let heightLeft = imgHeight;
+
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+    }
+
+    pdf.save("{{ user.full_name }}_DHD_Report.pdf");
+
+    // Restore original width
+    reportElement.style.width = originalWidth;
+}
+</script>
+
+{% endblock %}

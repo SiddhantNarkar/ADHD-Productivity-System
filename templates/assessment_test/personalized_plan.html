@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>ADHD Productivity System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/personalized_plan.css' %}">
+    <link rel="stylesheet" href="{% static 'css/point_based_rank_system.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="personalized-welcome-section mt-5">
+    <div class="welcome-container">
+
+        <!-- Left Content -->
+        <div class="welcome-left">
+            <h2 class="welcome-title">
+                Welcome back, {{ user.full_name }} 👋
+            </h2>
+
+            <p class="welcome-subtext">
+                Today you have <strong>{{ total_tasks }} activities</strong> to complete.<br>
+                These tasks are designed to improve your focus and productivity.<br>
+                Stay consistent and take one step at a time.<br>
+                So… are you ready to start your day strong?
+            </p>
+        </div>
+
+        <!-- Right Status Boxes -->
+        <div class="welcome-right">
+
+            <div class="status-box completed-box">
+                <h3>{{ completed_count }}</h3>
+                <p>Completed Tasks</p>
+            </div>
+
+            <div class="status-box pending-box">
+                <h3>{{ pending_count }}</h3>
+                <p>Pending Tasks</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="adhd-status-section">
+    <div class="status-card-container">
+
+        <!-- Card 1 -->
+        <div class="adhd-status-card">
+            <div class="card-top">
+                <span class="card-icon">📅</span>
+                <span class="card-title">Last Test Date</span>
+            </div>
+            <div class="card-value">
+                <h3>{{ last_test_date }}</h3>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="adhd-status-card">
+            <div class="card-top">
+                <span class="card-icon">🧠</span>
+                <span class="card-title">ADHD Level</span>
+            </div>
+            <div class="card-value">
+                <h3>Level {{ adhd_level_number }}</h3>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="adhd-status-card">
+            <div class="card-top">
+                <span class="card-icon">🏷</span>
+                <span class="card-title">ADHD Level Lebal</span>
+            </div>
+            <div class="card-value level-{{ adhd_level|lower }}">
+                <h3>{{ adhd_level_label }}</h3>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="adhd-status-card">
+            <div class="card-top">
+                <span class="card-icon">⏳</span>
+                <span class="card-title">Next Test In</span>
+            </div>
+            <div class="card-value">
+                <h3>{{ remaining_days }} Days</h3>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="adhd-status-card">
+            <div class="card-top">
+                <span class="card-icon">🏆</span>
+                <span class="card-title">Achieved Points</span>
+            </div>
+            <div class="card-value">
+                <h3>{{ total_points }} Points</h3>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="assigned-task-section">
+    <div class="task-table-container">
+
+        <h4 class="table-title">
+            Assigned Tasks
+        </h4>
+
+        <div class="table-responsive">
+            <table class="task-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">ID</th>
+                        <th style="text-align:center;">Task Title</th>
+                        <th style="text-align:center;">Description</th>
+                        <th style="text-align:center;">Session</th>
+                        <th style="text-align:center;">Target Symptom</th>
+                        <th style="text-align:center;">Average Time</th>
+                        <th style="text-align:center;">Points</th>
+                        <th style="text-align:center;">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if tasks %}
+                        {% for user_task in tasks %}
+                        <tr>
+                            <td style="text-align:center;">Task {{ user_task.task.task_no }}</td>
+                            <td style="text-align:center;">{{ user_task.task.task_title }}</td>
+                            <td style="text-align:center;">{{ user_task.task.task_description }}</td>
+                            <td style="text-align:center;">{{ user_task.task.session }}</td>
+                            <td style="text-align:center;">{{ user_task.task.symptom }}</td>
+                            <td style="text-align:center;">{{ user_task.task.average_time }} min</td>
+                            <td style="text-align:center;">+ {{ user_task.task.points }} points</td>
+
+                            <td style="text-align:center;">
+                                <div class="checkbox-container">
+                                    <div class="checkbox-wrapper">
+
+                                        <!-- UNIQUE ID FIX -->
+                                        <input
+                                            class="checkbox"
+                                            id="checkbox-{{ user_task.id }}"
+                                            type="checkbox"
+                                            data-id="{{ user_task.id }}"
+                                            {% if user_task.status == "completed" %}checked{% endif %}
+                                        >
+
+                                        <label class="checkbox-label" for="checkbox-{{ user_task.id }}">
+                                            <div class="checkbox-flip">
+                                                <div class="checkbox-front">
+                                                    <svg fill="white" height="32" width="32" viewBox="0 0 24 24">
+                                                        <path d="M19 13H12V19H11V13H5V12H11V6H12V12H19V13Z"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="checkbox-back">
+                                                    <svg fill="white" height="32" width="32" viewBox="0 0 24 24">
+                                                        <path d="M9 19l-7-7 1.41-1.41L9 16.17l11.29-11.3L22 6l-13 13z"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7" style="text-align:center; padding:40px;">
+                                <div style="font-size:18px; font-weight:600;">
+                                    🎉 Congratulations!
+                                </div>
+                                <br>
+                                📋 Your recent test results are not showing ADHD symptoms anymore.<br><br>
+                                🚀 Keep maintaining your healthy focus habits and routines.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.querySelectorAll(".checkbox").forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+
+            let taskId = this.dataset.id;
+            let status = this.checked ? "completed" : "pending";
+
+            fetch("{% url 'update_task_status' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `task_id=${taskId}&status=${status}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();  // simple & safe refresh
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

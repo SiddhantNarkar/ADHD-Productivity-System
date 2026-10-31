@@ -1,0 +1,288 @@
+/* ==========================
+   GAMIFIED ASSESSMENT PAGE
+========================== */
+
+.gamified-section {
+  background: #ffffff;
+}
+
+.gamified-section-card {
+  padding: 60px 20px;
+}
+
+.gamified-card {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.6fr 0.6fr;
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================
+   LEFT SIDE
+========================== */
+
+.gamified-main {
+  padding: 60px;
+}
+
+.gamified-header {
+  margin-bottom: 40px;
+}
+
+.gamified-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #111;
+}
+
+.gamified-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-top: 6px;
+}
+
+.gamified-task-block {
+  margin-bottom: 60px;
+}
+
+.gamified-task-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.gamified-instruction {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* ==========================
+   TASK 1 DISPLAY BOX
+========================== */
+
+.gamified-display-box {
+  height: 220px;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 25px;
+  transition: all 0.25s ease-in-out;
+}
+
+.gamified-display-box.stimulus-flash {
+  background: #f2f7ff;
+}
+
+/* ==========================
+   TASK 2 MEMORY CONTAINER
+========================== */
+
+.memory-display-container {
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  box-sizing: border-box;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.memory-block {
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  background: #eaeaea;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.memory-block:hover {
+  background: #d6e4ff;
+}
+
+.memory-block.active-highlight {
+  background: #cfe0ff;
+  box-shadow: 0 0 12px rgba(0, 70, 167, 0.25);
+}
+
+.memory-block:active {
+  transform: scale(0.96);
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.gamified-action {
+  margin-bottom: 15px;
+}
+
+.gamified-btn {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.gamified-btn.primary {
+  background: #0046a7;
+  color: #ffffff;
+}
+
+.gamified-btn.primary:hover {
+  background: #002f75;
+}
+
+.gamified-btn.secondary {
+  background: #0046a7;
+  color: #ffffff;
+}
+
+.gamified-btn.secondary:hover {
+  background: #002f75;
+}
+
+.gamified-btn:active {
+  transform: translateY(1px);
+  opacity: 0.95;
+}
+
+.gamified-note {
+  font-size: 14px;
+  color: #777;
+}
+
+/* ==========================
+   SIDEBAR
+========================== */
+
+.gamified-sidebar {
+  padding: 40px 30px;
+  background: #fafafa;
+  border-left: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.gamified-sidebar-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.gamified-task-status {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.gamified-task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #eaeaea;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.gamified-task-item.active {
+  background: #ffffff;
+  outline: 2px solid #0046a7;
+  box-shadow: 0 0 10px rgba(0, 70, 167, 0.15);
+}
+
+.task-state {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+
+.task-state.in-progress {
+  background: #cfe0ff;
+}
+
+.task-state.locked {
+  background: #dddddd;
+}
+
+.task-state.completed {
+  background: #cfe8d8;
+}
+
+.gamified-submit-btn {
+    margin-top: 30px;
+    background: #0046a7;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+    text-align: center;
+}
+
+.gamified-submit-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 900px) {
+  .gamified-card {
+    grid-template-columns: 1fr;
+  }
+
+  .gamified-sidebar {
+    border-left: none;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 20px;
+  }
+
+  .gamified-main {
+    padding: 40px 30px;
+  }
+}
+
+.memory-block.active-highlight {
+    background-color: #0046a7;
+    transform: scale(1.05);
+    transition: 0.2s ease;
+}
+
+.memory-block.user-selected {
+    background-color: #7da8ff;
+}

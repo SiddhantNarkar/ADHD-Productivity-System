@@ -1,0 +1,72 @@
+/* Hero Section Container */
+.contact-hero-section {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 7 / 3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Dark Overlay */
+.contact-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+}
+
+/* Centered Content */
+.contact-hero-content {
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+    padding: 20px;
+}
+
+/* Title Style */
+.contact-hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* Subtitle Style */
+.contact-hero-subtitle {
+    font-size: 22px;
+    font-weight: 500;
+    color: #fff;
+}
+
+/* Responsive Typography */
+@media (max-width: 992px) {
+    .contact-hero-title {
+        font-size: 36px;
+    }
+    .contact-hero-subtitle {
+        font-size: 18px;
+    }
+    .contact-hero-section {
+        aspect-ratio: 7 / 4;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-hero-title {
+        font-size: 28px;
+    }
+    .contact-hero-subtitle {
+        font-size: 16px;
+    }
+    .contact-hero-section {
+        height: 50vh;
+    }
+}

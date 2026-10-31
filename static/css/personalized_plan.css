@@ -1,0 +1,324 @@
+.personalized-welcome-section {
+    padding: 40px 0;
+}
+
+.welcome-container {
+    max-width: 95%;
+    margin: auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.profile_settings_dropdown a:hover {
+    background-color: #0d6efd;
+    color: #ffffff;
+}
+
+/* ===== Left Content ===== */
+
+.welcome-left {
+    flex: 1;
+}
+
+.welcome-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #1e293b;
+}
+
+.welcome-subtext {
+    font-size: 20px;
+    color: #64748b;
+    line-height: 1.9;
+    margin-top: 15px;
+}
+
+/* ===== Right Status Boxes ===== */
+
+.welcome-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.status-box {
+    width: 160px;
+    padding: 25px;
+    border-radius: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.status-box h3 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.status-box p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Completed - Green */
+.completed-box {
+    background: #e6f9f0;
+    color: #16a34a;
+}
+
+/* Pending - Yellow */
+.pending-box {
+    background: #fff7e6;
+    color: #eab308;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 992px) {
+    .welcome-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .welcome-right {
+        justify-content: center;
+    }
+}
+
+
+
+
+
+
+/* ===== ADHD Status Section ===== */
+
+.adhd-status-section {
+    padding: 40px 0;
+}
+
+.status-card-container {
+    max-width: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+/* Individual Card */
+.adhd-status-card {
+    background: #ffffff;
+    padding: 20px 25px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.adhd-status-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Top Section */
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-icon {
+    font-size: 18px;
+}
+
+.card-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* Value */
+.card-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Level Colors */
+.level-mild {
+    color: #16a34a;
+}
+
+.level-moderate {
+    color: #f59e0b;
+}
+
+.level-severe {
+    color: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .status-card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .status-card-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* ===== Assigned Task Section ===== */
+
+.assigned-task-section {
+    padding: 40px 0;
+}
+
+.task-table-container {
+    max-width: 95%;
+    margin: auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Title */
+.table-title {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* Table */
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.task-table thead {
+    background: #f1f5f9;
+}
+
+.task-table th {
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.task-table td {
+    padding: 14px;
+    font-size: 14px;
+    color: #334155;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Hover effect */
+.task-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+
+
+/* From Uiverse.io by risabbir */
+.checkbox-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-flip {
+  width: 30px;
+  height: 30px;
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: transform 0.4s ease;
+}
+
+.checkbox-front,
+.checkbox-back {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  transition: transform 0.3s ease;
+}
+
+.checkbox-front {
+  background: linear-gradient(135deg, #ff6347, #f76c6c);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: rotateY(0deg);
+}
+
+.checkbox-back {
+  background: linear-gradient(135deg, #36b54a, #00c1d4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: rotateY(180deg);
+}
+
+.checkbox-wrapper:hover .checkbox-flip {
+  transform: scale(1.1);
+  transition: transform 0.4s ease-out;
+}
+
+.checkbox:checked + .checkbox-label .checkbox-front {
+  transform: rotateY(180deg);
+}
+
+.checkbox:checked + .checkbox-label .checkbox-back {
+  transform: rotateY(0deg);
+}
+
+.checkbox:focus + .checkbox-label .checkbox-flip {
+  box-shadow:
+    0 0 15px rgba(54, 181, 73, 0.7),
+    0 0 20px rgba(0, 193, 212, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.icon-path {
+  stroke: white;
+  stroke-width: 2;
+  fill: transparent;
+}

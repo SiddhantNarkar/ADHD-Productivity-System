@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+        <title>ADHD Productivity System</title>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section Image -->
+    <section class="contact-hero-section container-fluid p-0">
+        <img src="{% static 'images/contact-us-page.png' %}" alt="Contact Us" class="contact-hero-img">
+        <div class="contact-hero-overlay"></div>
+        <div class="contact-hero-content text-center">
+            <h1 class="contact-hero-title">Let Us Know What's On Your Mind</h1>
+            <p class="contact-hero-subtitle">We would love to hear from you!</p>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="adhd-contact-us-section py-5 mt-5 mb-5">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h2 class="adhd-contact-us-title">Support Begins With Conversation<br>Let’s talk - We’re here to listen.</h2>
+                    <div class="adhd-contact-us-image-wrap">
+                        <img src="{% static 'images/contact-us.png' %}" alt="Team Discussion" class="img-fluid adhd-contact-us-image">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form id="contactForm" action="" class="adhd-contact-us-form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-4">
+                                <label class="adhd-contact-us-label">Name</label>
+                                <input type="text" name="name" id="name" class="form-control adhd-contact-us-input" required>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="adhd-contact-us-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control adhd-contact-us-input" required>
+                            </div>
+                            <div class="col-md-12 mb-4">
+                                <label class="adhd-contact-us-label">Contact Number</label>
+                                <input type="text" name="contact_number" id="contact_number" class="form-control adhd-contact-us-input" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="adhd-contact-us-label">Message</label>
+                                <textarea class="form-control adhd-contact-us-textarea" name="message" id="message" rows="4" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="adhd-contact-us-btn">Get in touch</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

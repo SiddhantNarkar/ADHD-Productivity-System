@@ -1,0 +1,333 @@
+/* ============================
+   PROFILE SECTION WRAPPER
+============================ */
+.user_profile_section_wrapper {
+    width: 100%;
+    padding: 80px 60px;
+    background-color: #f7f7fa;
+    box-sizing: border-box;
+}
+
+/* PAGE WRAPPER */
+.profile_page_wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============================
+   HEADER
+============================ */
+.profile_top_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.profile_page_title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0d3b66;
+}
+
+/* ============================
+   SETTINGS DROPDOWN
+============================ */
+.profile_settings_wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile_settings_icon {
+    font-size: 28px;
+    color: #0d6efd;
+    padding: 6px;
+}
+
+.profile_settings_dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background-color: #ffffff;
+    min-width: 190px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.profile_settings_dropdown a {
+    display: block;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.profile_settings_dropdown a:hover {
+    background-color: #0d6efd;
+    color: #ffffff;
+}
+
+/* ============================
+   MAIN GRID
+============================ */
+.profile_main_layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+}
+
+/* ============================
+   LEFT PROFILE CARD
+============================ */
+.profile_left_card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    border: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transition: 0.4s;
+    transition: 0.4s;
+}
+
+.profile_left_card:hover {
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.09);
+    transform: translateY(-6px);
+}
+
+.profile_left_card:hover .profile_user_avatar {
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.09);
+    transform: translateY(-6px);
+}
+
+.profile_user_header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.profile_user_avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #e6f0dc;
+    transition: 0.4s;
+}
+
+.profile_user_name {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d3b66;
+}
+
+.profile_user_id {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* ============================
+   PROFILE INFO
+============================ */
+.profile_info_section {
+    margin-top: 22px;
+}
+
+.profile_section_title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #0d3b66;
+}
+
+.profile_info_text {
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+/* ============================
+   RIGHT CONTENT
+============================ */
+.profile_right_content {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.profile_right_card {
+    background-color: #ffffff;
+    padding: 22px 24px;
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transition: 0.4s;
+}
+
+.profile_right_card:hover {
+    shadow: 0px 10px 25px rgba(0, 0, 0, 0.09);
+    transform: translateY(-6px);
+}
+
+/* ============================
+   JOB INFO CARD
+============================ */
+.profile_card_header {
+    margin-bottom: 12px;
+}
+
+.profile_card_title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0d3b66;
+}
+
+/* ============================
+   TABLE
+============================ */
+.profile_job_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+.profile_job_table th {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0d6efd;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.profile_job_table td {
+    font-size: 14px;
+    padding: 14px 0;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ============================
+   DUAL CARDS
+============================ */
+.profile_dual_cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+/* FULL HEIGHT STREAK CARD FIX */
+.profile_dual_cards .profile_right_card:first-child {
+    padding: 0;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 1024px) {
+
+    .profile_top_header{
+        margin-top: 30px;
+    }
+
+    .user_profile_section_wrapper {
+        padding: 40px 20px;
+    }
+
+    .profile_main_layout {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
+
+    .profile_dual_cards {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
+
+        .profile_left_card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    /* Info sections behave like mobile cards */
+    .profile_left_card .profile_info_section {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        background-color: #EBF6F9;
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .profile_section_title {
+        margin-bottom: 6px;
+    }
+
+    .profile_info_text {
+        font-size: 14px;
+    }
+}
+
+/* ============================
+   MOBILE: PROFILE INFO GRID
+============================ */
+@media (max-width: 768px) {
+
+    .profile_top_header{
+        margin-top: 30px;
+    }
+
+    /* Make info sections wrap side-by-side */
+    .profile_left_card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile_left_card .profile_info_section {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Wrapper behavior using implicit flex */
+    .profile_left_card {
+        gap: 16px;
+    }
+
+    /* Turn info sections into flexible cards */
+    .profile_info_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-color: #EBF6F9;
+        padding: 14px;
+        border-radius: 12px;
+    }
+
+    .profile_section_title {
+        margin-bottom: 6px;
+    }
+
+    .profile_info_text {
+        font-size: 13px;
+    }
+
+     .profile_page_title {
+        font-size: 24px;
+    }
+
+    .profile_user_avatar {
+        width: 120px;
+        height: 120px;
+    }
+}
+

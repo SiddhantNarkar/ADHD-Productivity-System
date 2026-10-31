@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>ADHD Productivity System</title>
+    <link rel="stylesheet" href="{% static 'css/delete_account.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="delete-account-section d-flex justify-content-center align-items-center mt-5 mb-5">
+    <div class="delete-account-box shadow mt-5 mb-3" id="delete-account-Box">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <h2 class="delete-account-title">Delete Account</h2>
+
+        <p class="delete-account-text">
+            <span class="danger-text">
+                Are you sure you want to delete your account,<br>
+                <strong>{{ user.full_name }}</strong>?
+            </span>
+            <br>
+            <span class="warning-text">
+                This action cannot be undone.
+            </span>
+        </p>
+
+        <form action="" method="POST" class="delete-account-form">
+            {% csrf_token %}
+
+            <div class="password-field">
+                <input class="password-input" type="password" name="confirm_password" required placeholder="Enter your password to confirm">
+                <span class="toggle-password">
+                    <i class="bi bi-eye-fill"></i>
+                </span>
+            </div>
+
+            <button class="delete-account-btn" type="submit">
+                Delete Account
+            </button>
+
+            <a href="{% url 'portal_user_account_view_urls' %}" class="cancel-account-btn">
+                Cancel
+            </a>
+        </form>
+    </div>
+
+    <script>
+        document.querySelectorAll(".toggle-password").forEach(toggle => {
+            toggle.addEventListener("click", () => {
+                const input = toggle.previousElementSibling;
+                const icon = toggle.querySelector("i");
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    icon.classList.remove("bi-eye-fill");
+                    icon.classList.add("bi-eye-slash-fill");
+                } else {
+                    input.type = "password";
+                    icon.classList.remove("bi-eye-slash-fill");
+                    icon.classList.add("bi-eye-fill");
+                }
+            });
+        });
+    </script>
+</section>
+{% endblock %}

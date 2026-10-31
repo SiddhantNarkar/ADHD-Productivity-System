@@ -1,0 +1,122 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+        <title>ADHD Productivity System</title>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section Image -->
+    <section class="about-hero-section container-fluid p-0">
+        <img src="{% static 'images/about-us-page.jpg' %}" alt="about Us" class="about-hero-img">
+        <div class="about-hero-overlay"></div>
+        <div class="about-hero-content text-center">
+            <h1 class="about-hero-title">Know More About Us</h1>
+        </div>
+    </section>
+
+    <!-- Our Core Values Section -->
+    <section class="card-section-custom py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-5 mt-2">
+                <h2 class="title-custom">Our Core Values</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="info-card-custom h-100">
+                        <img src="{% static 'images/innovation.svg' %}" class="card-icon-custom" alt="ADHD Icon">
+                        <h3 class="card-heading-custom">Innovation</h3>
+                        <p class="card-text-custom">
+                            Pushing AI advancements forward to create smarter and more efficient technology solutions for the future.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="info-card-custom h-100">
+                        <img src="{% static 'images/integrity.svg' %}" class="card-icon-custom" alt="Task Icon">
+                        <h3 class="card-heading-custom">Integrity</h3>
+                        <p class="card-text-custom">
+                            Ensuring ethical and responsible AI adoption that protects user trust and upholds strong safety standards.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="info-card-custom h-100">
+                        <img src="{% static 'images/excellence.svg' %}" class="card-icon-custom" alt="Chatbot Icon">
+                        <h3 class="card-heading-custom">Excellence</h3>
+                        <p class="card-text-custom">
+                            Delivering measurable, high-quality results that drive real-world improvements and lasting impact.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="our-story-section">
+        <div class="our-story-container">
+            <div class="our-story-left">
+                <h2 class="our-story-heading">
+                    Who We Are <span class="our-story-subtitle">Know Our Story</span>
+                </h2>
+            </div>
+            <div class="our-story-right">
+                <p class="our-story-text">
+                    We are a passionate and driven team of four emerging AI technologists - currently in our final year of Artificial
+                    Intelligence & Data Science at Dr. D.Y. Patil Institute of Technology, Pune. Our journey is fueled by curiosity,
+                    collaboration, and a shared vision to transform technology into meaningful solutions. With strong foundations in
+                    data-driven innovation, we aim to push boundaries by utilizing artificial intelligence to address real-world
+                    challenges that genuinely impact lives. <br><br>
+
+                    Our mission is to create purposeful and responsible technology that supports human well-being. Guided by core values
+                    such as empathy, trust, integrity, and innovation, we are currently developing AI for ADHD Productivity - a smart
+                    assistive system designed to help individuals better understand and manage ADHD through prediction, personalized support,
+                    and ongoing guidance. Our focus is on delivering intelligent solutions that enhance productivity, empower individuals with
+                    self-growth tools, and ensure that technology actively contributes to a healthier, more inclusive future. We believe that AI
+                    is not just about automation - it’s about elevating human potential, and our work reflects that commitment every step of the way.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="our-team-section py-5">
+        <div class="container text-center">
+            <h2 class="our-team-section-title">
+                The Powerhouse <span>Team</span>
+            </h2>
+            <div class="row justify-content-center mt-5">
+                <div class="col-12 col-sm-6 col-md-3 our-team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{% static 'images/person.png' %}" alt="Team Member 1">
+                    </div>
+                    <h4 class="team-name mt-3">Name Here</h4>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 our-team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{% static 'images/person.png' %}" alt="Team Member 2">
+                    </div>
+                    <h4 class="team-name mt-3">Name Here</h4>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 our-team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{% static 'images/person.png' %}" alt="Team Member 3">
+                    </div>
+                    <h4 class="team-name mt-3">Name Here</h4>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 our-team-card">
+                    <div class="team-img-wrapper">
+                        <img src="{% static 'images/person.png' %}" alt="Team Member 4">
+                    </div>
+                    <h4 class="team-name mt-3">Name Here</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+{% endblock %}

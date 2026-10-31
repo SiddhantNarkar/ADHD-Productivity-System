@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+        <title>ADHD Productivity System</title>
+
+        <!-- important css pages-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/assessment.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="assessment-section py-5 mt-5 mb-5">
+    <div class="container">
+        <div class="assessment-section-card">
+            <div class="assessment-card">
+
+                <!-- Image Side -->
+                <div class="assessment-image">
+                    <img src="{% static 'images/assessment_pic1.png' %}" alt="ADHD Assessment Instructions">
+                </div>
+
+                <!-- Content Side -->
+                <div class="assessment-card-content">
+                    <h2>Before You Begin the ADHD Assessment</h2>
+
+                    <p class="assessment-card-desc">
+                        This assessment is designed to better understand patterns related to attention,
+                        focus, impulsivity, and organization in everyday life. It is not a medical diagnosis,
+                        but a structured self-reflection tool that helps generate meaningful insights
+                        based on your responses.
+                    </p>
+
+                    <div class="assessment-instructions">
+                        <p class="assessment-instructions-title">
+                            <strong>Please read the following before starting:</strong>
+                        </p>
+
+                        <ol class="assessment-instructions-list">
+                            <li>The assessment typically takes 10–15 minutes to complete.</li>
+                            <li>This assessment is completed in two parts:
+                                <ul class="assessment-sub-list">
+                                    <li>Part 1: Multiple-choice questions based on daily experiences.</li>
+                                    <li>Part 2: A short, interactive gamified task.</li>
+                                </ul>
+                                <span class="assessment-note">
+                                    Completing both parts helps generate a more accurate and meaningful report.
+                                </span>
+                            </li>
+
+                            <li>There are no right or wrong answers; respond honestly based on your usual experiences.</li>
+
+                            <li>Answer each question naturally and avoid overthinking your responses.</li>
+
+                            <li>If possible, take the assessment in a quiet, distraction-free space.</li>
+
+                            <li>Your responses are used only to generate insights and are not a clinical diagnosis.</li>
+                        </ol>
+                    </div>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" href="{% url 'progress_page_view_urls' %}"  class="assessment-test-btn mt-5">
+                            Begin Assessment
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

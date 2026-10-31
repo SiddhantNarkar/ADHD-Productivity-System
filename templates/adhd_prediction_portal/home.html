@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+        <title>ADHD Productivity System</title>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section Image -->
+    <div class="home-section">
+        <div class="home-image">
+            <img src="{% static 'images/hero_section_banner.png' %}" width="100%" class="home-img" alt="Home Image">
+        </div>
+    </div>
+
+    <!-- ADHD Information Section -->
+    <section class="adhd-information-section">
+        <div class="adhd-information-container">
+            <div class="adhd-information-left">
+                <h2 class="adhd-information-heading">
+                    ADHD Disease <span class="adhd-information-subtitle">Overview</span>
+                </h2>
+            </div>
+            <div class="adhd-information-right">
+                <h3 class="adhd-information-title">What is Attention Deficit Hyperactivity Disorder ?</h3>
+                <p class="adhd-information-text">
+                    Attention Deficit Hyperactivity Disorder (ADHD) is a common condition that affects how a person pays attention,
+                    stays focused, and controls their behavior. It usually begins in childhood but can continue into adulthood.
+                    People with ADHD may find it hard to sit still, follow instructions, or stay on one task for a long time. It’s
+                    important to understand that ADHD is not a sign of laziness or bad behavior - it’s a genuine neurological condition
+                    that influences how the brain manages attention, impulse control, and activity levels.<br><br>
+
+                    People with ADHD often show a range of symptoms that can differ from person to person. Inattention means having
+                    trouble staying focused, missing small details, or getting easily distracted. Hyperactivity shows as constant movement,
+                    restlessness, or fidgeting even in calm situations. Impulsivity involves acting before thinking, interrupting others,
+                    or struggling to wait one’s turn. Disorganization makes it difficult to manage time, tasks, or responsibilities effectively.
+                    Forgetfulness can lead to missing deadlines, appointments, or losing important items. Difficulty completing tasks happens
+                    when someone starts projects with energy but finds it hard to finish them. Poor emotional regulation causes quick frustration,
+                    mood swings, or feeling easily overwhelmed. Lastly, trouble prioritizing means finding it hard to decide what’s most important,
+                    often leading to procrastination. These symptoms can affect learning, work, and daily life, but with awareness, understanding,
+                    and support, people with ADHD can find ways to adapt and thrive.
+                </p>
+                <a href="{% url 'adhd_assessment_test_view_urls' %}" class="adhd-try-btn">Try ADHD Productivity Model Now →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADHD Symptoms Section -->
+    <section class="adhd-symptoms-section">
+        <div class="container">
+            <h2 class="adhd-title">Recognize Common Symptoms of ADHD</h2>
+            <div class="row g-4 mt-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/inattention.jpg' %}" class="adhd-img" alt="Inattention">
+                        <h5 class="adhd-name">Inattention</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/hyperactivity.jpg' %}" class="adhd-img" alt="Hyperactivity">
+                        <h5 class="adhd-name">Hyperactivity</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/impulsivity.jpg' %}" class="adhd-img" alt="Impulsivity">
+                        <h5 class="adhd-name">Impulsivity</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/disorganization.jpg' %}" class="adhd-img" alt="Hyperactivity">
+                        <h5 class="adhd-name">Disorganization</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/forgetfulness.jpg' %}" class="adhd-img" alt="Impulsivity">
+                        <h5 class="adhd-name">Forgetfulness</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/difficulty.jpg' %}" class="adhd-img" alt="Hyperactivity">
+                        <h5 class="adhd-name">Difficulty Completing Tasks</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/emotional.jpg' %}" class="adhd-img" alt="Impulsivity">
+                        <h5 class="adhd-name">Emotional Dysregulation</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="adhd-card">
+                        <img src="{% static 'images/prioritizing.jpg' %}" class="adhd-img" alt="Difficulty in Focus">
+                        <h5 class="adhd-name">Trouble Prioritizing</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADHD Productivity Module Section -->
+    <section class="card-section-custom py-5 mt-5 mb-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-5 mt-2">
+                <h2 class="title-custom m-0">Our Intelligent ADHD Productivity Modules</h2>
+                <a href="{% url 'adhd_assessment_test_view_urls' %}" class="action-btn-custom">Try it Now →</a>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="info-card-custom h-100">
+                        <img src="{% static 'images/Prediction_model.png' %}" class="card-icon-custom" alt="ADHD Icon">
+                        <h3 class="card-heading-custom">ADHD Prediction & Screening</h3>
+                        <p class="card-text-custom">
+                            AI-driven behavioral analysis to assist in identifying ADHD tendencies with higher accuracy and early assessment.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="info-card-custom h-100">
+                        <img src="{% static 'images/task_management.png' %}" class="card-icon-custom" alt="Task Icon">
+                        <h3 class="card-heading-custom">Smart Task Management</h3>
+                        <p class="card-text-custom">
+                            Personalized task reminders, routine builder, and productivity tracking — tailored for ADHD-friendly focus.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="info-card-custom h-100">
+                        <img src="{% static 'images/ai.png' %}" class="card-icon-custom" alt="Chatbot Icon">
+                        <h3 class="card-heading-custom">AI Productivity Companion</h3>
+                        <p class="card-text-custom">
+                            A smart chatbot that supports daily tasks, gives reminders, boosts motivation, and helps maintain focus anytime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADHD Productivity System Works Section -->
+    <section class="adhd-system-works-section">
+        <div class="adhd-system-works-container">
+            <div class="adhd-system-works-left">
+                <h2 class="adhd-system-works-title">How Our ADHD <br> Productivity System Works</h2>
+            </div>
+            <div class="adhd-system-works-timeline">
+                <div class="adhd-system-works-step">
+                    <div class="adhd-system-works-icon-box">
+                        <img src="{% static 'images/creates-profile.png' %}" alt="User Profile Icon">
+                    </div>
+                    <div class="adhd-system-works-content">
+                        <h3>Step 1: User Creates a Profile</h3>
+                        <p>The system begins by creating a personalized user profile to understand the user’s background and needs.</p>
+                    </div>
+                </div>
+
+                <div class="adhd-system-works-line"></div>
+                <div class="adhd-system-works-step">
+                    <div class="adhd-system-works-icon-box">
+                        <img src="{% static 'images/gamified-assessment.png' %}" alt="Assessment Test Icon">
+                    </div>
+                    <div class="adhd-system-works-content">
+                        <h3>Step 2: Gamified & MCQ Assessment</h3>
+                        <p>The user completes interactive assessments that evaluate behavior patterns and attention levels.</p>
+                    </div>
+                </div>
+
+                <div class="adhd-system-works-line"></div>
+                <div class="adhd-system-works-step">
+                    <div class="adhd-system-works-icon-box">
+                        <img src="{% static 'images/prediction-report.png' %}" alt="Report Icon">
+                    </div>
+                    <div class="adhd-system-works-content">
+                        <h3>Step 3: ADHD Prediction Report</h3>
+                        <p>The system generates a detailed ADHD report.</p>
+                    </div>
+                </div>
+
+                <div class="adhd-system-works-line"></div>
+                <div class="adhd-system-works-step">
+                    <div class="adhd-system-works-icon-box">
+                        <img src="{% static 'images/self-treatment.png' %}" alt="Task Plan Icon">
+                    </div>
+                    <div class="adhd-system-works-content">
+                        <h3>Step 4: Self-Treatment Task Plan</h3>
+                        <p>A customized productivity and behavioral improvement plan is generated based on the ADHD report.</p>
+                    </div>
+                </div>
+
+                <div class="adhd-system-works-line"></div>
+
+                <div class="adhd-system-works-step">
+                    <div class="adhd-system-works-icon-box">
+                        <img src="{% static 'images/reward.png' %}" alt="Rewards Icon">
+                    </div>
+                    <div class="adhd-system-works-content">
+                        <h3>Step 5: Reward & Progress Tracking</h3>
+                        <p>The reward system encourages motivation using points, badges, streaks, and progress tracking.</p>
+                    </div>
+                </div>
+
+                <div class="adhd-system-works-line"></div>
+                <div class="adhd-system-works-step">
+                    <div class="adhd-system-works-icon-box">
+                        <img src="{% static 'images/ai.png' %}" alt="AI Chatbot Icon">
+                    </div>
+                    <div class="adhd-system-works-content">
+                        <h3>Step 6: AI Chatbot Support</h3>
+                        <p>The AI assistant remains available to guide, remind, and support the user in their daily journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="adhd-contact-us-section py-5 mt-5 mb-5">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h2 class="adhd-contact-us-title">Support Begins With Conversation<br>Let’s talk - We’re here to listen.</h2>
+                    <div class="adhd-contact-us-image-wrap">
+                        <img src="{% static 'images/contact-us.png' %}" alt="Team Discussion" class="img-fluid adhd-contact-us-image">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form id="contactForm" action="" class="adhd-contact-us-form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-4">
+                                <label class="adhd-contact-us-label">Name</label>
+                                <input type="text" name="name" id="name" class="form-control adhd-contact-us-input" required>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="adhd-contact-us-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control adhd-contact-us-input" required>
+                            </div>
+                            <div class="col-md-12 mb-4">
+                                <label class="adhd-contact-us-label">Contact Number</label>
+                                <input type="text" name="contact_number" id="contact_number" class="form-control adhd-contact-us-input" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="adhd-contact-us-label">Message</label>
+                                <textarea class="form-control adhd-contact-us-textarea" name="message" id="message" rows="4" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="adhd-contact-us-btn">Get in touch</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

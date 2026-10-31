@@ -1,0 +1,194 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>ADHD Productivity System</title>
+{% endblock %}
+
+{% block content %}
+
+<!-- Guardian Create Account Section -->
+<section class="guardian-section mt-5 mb-5">
+    <div class="guardian-box shadow mt-5 mb-3" id="guardianRegisterBox">
+
+        <h2 class="guardian-title">Create Account</h2>
+
+
+        <form action="" class="guardian-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Profile Photo -->
+            <div class="guardian-profile-pic-wrapper">
+                <img id="guardianProfilePreview" src="{% static 'images/men.jpg' %}" class="guardian-profile-pic" alt="Profile Image">
+
+                <input type="file" name="profile_image" id="guardianProfileImageInput" accept="image/*" style="display: none;">
+
+                <label for="guardianProfileImageInput" class="guardian-camera-btn">
+                    <i class="fas fa-camera"></i>
+                </label>
+            </div>
+
+            <!-- Full Name -->
+            <input class="guardian-input" type="text" name="full_name" placeholder="Full Name" required>
+
+            <!-- Email -->
+            <input class="guardian-input" type="email" name="email" placeholder="E-mail" required>
+
+            <!-- Phone -->
+            <input class="guardian-input" type="tel" name="phone" placeholder="Phone Number" required>
+
+            <!-- DOB -->
+            <input class="guardian-input" type="date" name="dob" required>
+
+            <!-- Gender -->
+            <select class="guardian-input" name="gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+
+            <!-- Occupation -->
+            <select class="guardian-input" name="occupation" required>
+                <option value="" disabled selected>Select Occupation</option>
+
+                <option value="Student">Student</option>
+                <option value="Working Professional">Working Professional</option>
+                <option value="Self-Employed">Self-Employed</option>
+                <option value="Homemaker">Homemaker</option>
+                <option value="Unemployed">Unemployed</option>
+                <option value="Retired">Retired</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <!-- Address -->
+            <input class="guardian-input" type="text" name="complete_address" placeholder="Complete Address" required>
+
+            <!-- State -->
+            <select class="guardian-input" name="state" required>
+                <option value="" disabled selected>Select State</option>
+
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+            </select>
+
+            <!-- Country -->
+            <select class="guardian-input" name="country" required>
+                <option value="" disabled selected>Select Country</option>
+                <option>India</option>
+            </select>
+
+            <!-- Blood Group -->
+            <select class="guardian-input" name="blood_group" required>
+                <option value="" disabled selected>Blood Group</option>
+
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+            <!-- Password -->
+            <input class="guardian-input" type="password" name="password" placeholder="Password" required>
+            <input class="guardian-input" type="password" name="confirm_password" placeholder="Confirm Password" required>
+
+            <!-- Hidden Account Type -->
+            <input type="hidden" name="account_type" value="Guardian Account">
+
+            <!-- Add Sub-Guardian Button -->
+            <button type="button" class="guardian-add-sub-btn" onclick="addSubGuardian()">
+                + Add Sub-Guardian
+            </button>
+
+            <!-- Sub-Guardian Container (dynamic) -->
+            <div id="guardianSubContainer"></div>
+
+            <button class="guardian-submit-btn" type="submit">Create Account</button>
+
+        </form>
+
+        <p class="guardian-footer-text">
+            Already have an account?
+            <a class="guardian-link" href="{% url 'login_view_urls' %}">Sign In Now</a>
+        </p>
+
+    </div>
+</section>
+
+<!-- Template for Sub-Guardian Block -->
+<div id="guardianSubTemplate" style="display:none;">
+
+    <div class="guardian-sub-block">
+
+        <!-- Sub-Guardian Profile Image -->
+        <div class="guardian-profile-pic-wrapper subguardian-block">
+            <img id="sub_preview_ID" src="{% static 'images/men.jpg' %}" class="guardian-profile-pic" alt="Profile Image">
+
+            <input type="file" name="subguardian_image" id="sub_input_ID" accept="image/*" style="display:none;">
+
+            <label for="sub_input_ID" class="guardian-camera-btn">
+                <i class="fas fa-camera"></i>
+            </label>
+        </div>
+
+        <input class="guardian-input" type="text" name="subguardian_full_name" placeholder="Full Name">
+        <input class="guardian-input" type="email" name="subguardian_email" placeholder="E-mail">
+        <input class="guardian-input" type="tel" name="subguardian_phone" placeholder="Phone Number">
+        <input class="guardian-input" type="date" name="subguardian_dob">
+
+        <select class="guardian-input" name="subguardian_gender">
+            <option value="" disabled selected>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+
+        <select class="guardian-input" name="subguardian_occupation">
+            <option value="" disabled selected>Select Occupation</option>
+            <option value="Student">Student</option>
+            <option value="Working Professional">Working Professional</option>
+            <option value="Self-Employed">Self-Employed</option>
+            <option value="Homemaker">Homemaker</option>
+            <option value="Unemployed">Unemployed</option>
+            <option value="Retired">Retired</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <button type="button" class="guardian-remove-sub-btn" onclick="this.parentElement.remove()">
+            Remove
+        </button>
+
+    </div>
+</div>
+
+{% endblock %}

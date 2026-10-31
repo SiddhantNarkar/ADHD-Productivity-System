@@ -1,0 +1,465 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+        <title>ADHD Productivity System</title>
+
+        <!-- important css pages-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/gamified_test.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="gamified-section py-5 mt-5 mb-5">
+    <div class="container">
+        <div class="gamified-section-card">
+            <div class="gamified-card">
+
+                <!-- LEFT SIDE -->
+                <div class="gamified-main">
+
+                    <div class="gamified-header">
+                        <h2 class="gamified-title">Interactive Cognitive Tasks</h2>
+                        <p class="gamified-subtitle">Complete both tasks carefully and respond naturally.</p>
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- TASK 1: ATTENTION TASK -->
+                    <!-- ============================= -->
+
+                    {% if show_game1 %}
+                    <div class="gamified-task-block">
+
+                        <h3 class="gamified-task-title">
+                            Task 1: Attention Task
+                        </h3>
+
+                        <p class="gamified-instruction">
+                            Press the button only when the letter <strong>X</strong> appears.
+                        </p>
+
+                        <div id="stimulus-box" class="gamified-display-box"></div>
+
+                        <div class="gamified-action">
+                            <button onclick="startGame()" class="gamified-btn primary">
+                                Start Game
+                            </button>
+                            <button onclick="pressButton()" class="gamified-btn primary">
+                                Press
+                            </button>
+                        </div>
+                        <div class="gamified-header">
+                            <h3 class="gamified-subtitle mt-5" style="text-align: center; font-size: 22px;">Click <strong>Start Game</strong> button whenever you are ready.</h3>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- ============================= -->
+                    <!-- TASK 2: MEMORY TASK -->
+                    <!-- ============================= -->
+
+                    {% if show_game2 %}
+                    <div class="gamified-task-block">
+
+                        <h3 class="gamified-task-title">
+                            Task 2: Memory Task
+                        </h3>
+
+                        <p class="gamified-instruction">
+                            Observe and recreate the pattern.
+                        </p>
+
+                        <p id="level-indicator" class="mcq-question-count badge bg-success fs-5 px-3 py-2"></p>
+
+                        <div class="memory-display-container">
+                            <div class="memory-grid">
+                                {% for i in "012345678"|make_list %}
+                                    <div id="block-{{ forloop.counter0 }}"
+                                         class="memory-block"
+                                         onclick="blockClicked({{ forloop.counter0 }})">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="gamified-action">
+                            <button onclick="playPattern()" class="gamified-btn secondary">
+                                Start Memory Game
+                            </button>
+                        </div>
+                        <div class="gamified-header">
+                            <h3 class="gamified-subtitle mt-5" style="text-align: center; font-size: 22px;">Click <strong>Start Memory Game</strong> button whenever you are ready.</h3>
+                        </div>
+
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <!-- RIGHT SIDE -->
+                <aside class="gamified-sidebar">
+
+                    <h4 class="gamified-sidebar-title">Gamified Tasks</h4>
+
+                    <div class="gamified-task-status">
+
+                        <div class="gamified-task-item
+                            {% if session.status == 'game1_in_progress' %}active{% endif %}">
+                            <span>Task 1: Attention</span>
+                            <span class="task-state
+                                {% if session.status == 'game1_in_progress' %}in-progress{% endif %}
+                                {% if session.status in 'game1_completed game2_in_progress' %}completed{% endif %}">
+                                {% if session.status == 'game1_in_progress' %}
+                                    In Progress
+                                {% elif session.status in "game1_completed game2_in_progress" %}
+                                    Completed
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <div class="gamified-task-item
+                            {% if session.status == 'game2_in_progress' %}active{% endif %}">
+                            <span>Task 2: Memory</span>
+                            <span class="task-state
+                                {% if session.status == 'game2_in_progress' %}in-progress{% endif %}
+                                {% if session.status == 'game1_in_progress' %}locked{% endif %}">
+                                {% if session.status == 'game1_in_progress' %}
+                                    Locked
+                                {% elif session.status == 'game2_in_progress' %}
+                                    In Progress
+                                {% endif %}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <button type="button"
+                            id="final-submit-btn"
+                            class="gamified-submit-btn"
+                            disabled
+                            onclick="handleSidebarAction()">
+                        Submit Assessment
+                    </button>
+
+                </aside>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    let totalStimuli = 0;
+    let totalTargets = 0;
+    let correctPresses = 0;
+    let falsePresses = 0;
+    let missedTargets = 0;
+    let reactionTimes = [];
+
+    let currentLetter = "";
+    let stimulusStartTime = null;
+
+    const letters = ["X", "A", "B", "C", "V", "W", "Y", "Z"];
+    const stimulusCount = 20;
+    const displayDuration = 800;
+    const gapDuration = 700;
+
+    function startGame() {
+        let count = 0;
+
+        let stimulusArray = [];
+
+        stimulusArray.push("X");
+        stimulusArray.push("X");
+
+        while (stimulusArray.length < stimulusCount) {
+            let randomLetter = letters[Math.floor(Math.random() * letters.length)];
+            stimulusArray.push(randomLetter);
+        }
+
+        for (let i = stimulusArray.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [stimulusArray[i], stimulusArray[j]] = [stimulusArray[j], stimulusArray[i]];
+        }
+
+        function showStimulus() {
+
+            if (count >= stimulusArray.length) {
+                finishGame();
+                return;
+            }
+
+            currentLetter = stimulusArray[count];
+            document.getElementById("stimulus-box").innerText = currentLetter;
+
+            stimulusStartTime = Date.now();
+            totalStimuli++;
+
+            if (currentLetter === "X") {
+                totalTargets++;
+            }
+
+            setTimeout(() => {
+
+                if (currentLetter === "X") {
+                    missedTargets++;
+                }
+
+                document.getElementById("stimulus-box").innerText = "";
+                count++;
+
+                setTimeout(showStimulus, gapDuration);
+
+            }, displayDuration);
+        }
+
+        showStimulus();
+    }
+
+    function pressButton() {
+        if (!currentLetter) return;
+
+        if (currentLetter === "X") {
+            correctPresses++;
+            missedTargets--;
+            reactionTimes.push(Date.now() - stimulusStartTime);
+        } else {
+            falsePresses++;
+        }
+    }
+
+    function finishGame() {
+
+        let avgReaction = reactionTimes.length > 0
+            ? reactionTimes.reduce((a,b) => a+b) / reactionTimes.length
+            : 0;
+
+        fetch("{% url 'submit_game1' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `total_stimuli=${totalStimuli}&total_targets=${totalTargets}&correct_presses=${correctPresses}&false_presses=${falsePresses}&missed_targets=${missedTargets}&avg_reaction_time=${avgReaction}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showGame1CompletionMessage();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 4000);
+            }
+        });
+    }
+
+    function showGame1CompletionMessage() {
+
+        const box = document.createElement("div");
+        box.innerText = "Task 1 Completed!";
+        box.style.position = "fixed";
+        box.style.top = "20px";
+        box.style.left = "50%";
+        box.style.transform = "translateX(-50%)";
+        box.style.background = "#0046a7";
+        box.style.color = "white";
+        box.style.padding = "12px 20px";
+        box.style.borderRadius = "8px";
+        box.style.zIndex = "9999";
+        box.style.fontWeight = "600";
+
+        document.body.appendChild(box);
+
+        setTimeout(() => {
+            box.remove();
+        }, 4000);
+    }
+
+    function finishAssessment() {
+        window.location.reload();
+    }
+</script>
+
+
+<script>
+    let currentLevel = 1;
+    let maxLevels = 3;
+    let completedLevels = 0;
+
+    let memoryPatterns = {};
+    let userSequence = [];
+    let memoryStartTime = null;
+    let gameActive = false;
+
+    function generatePattern() {
+        let pattern = [];
+        while (pattern.length < 5) {
+            let num = Math.floor(Math.random() * 9);
+            if (!pattern.includes(num)) {
+                pattern.push(num);
+            }
+        }
+        return pattern;
+    }
+
+    function getTimingForLevel(level) {
+        if (level === 1) return { highlight: 700, gap: 600 };
+        if (level === 2) return { highlight: 550, gap: 450 };
+        if (level === 3) return { highlight: 400, gap: 300 };
+    }
+
+    function updateLevelDisplay() {
+        document.getElementById("level-indicator").innerText =
+            "Level " + currentLevel + " of 3";
+    }
+
+    function playPattern() {
+
+        // Generate new pattern for this level
+        memoryPatterns[currentLevel] = generatePattern();
+        let memoryPattern = memoryPatterns[currentLevel];
+
+        userSequence = [];
+        gameActive = false;
+
+        resetBlocks();
+
+        let timing = getTimingForLevel(currentLevel);
+        let i = 0;
+
+        function highlight() {
+
+            if (i >= memoryPattern.length) {
+                gameActive = true;
+                memoryStartTime = Date.now();
+                return;
+            }
+
+            let block = document.getElementById("block-" + memoryPattern[i]);
+            block.classList.add("active-highlight");
+
+            setTimeout(() => {
+                block.classList.remove("active-highlight");
+                i++;
+                setTimeout(highlight, timing.gap);
+            }, timing.highlight);
+        }
+
+        highlight();
+    }
+
+    function blockClicked(index) {
+
+        if (!gameActive) return;
+
+        userSequence.push(index);
+
+        document.getElementById("block-" + index)
+            .classList.add("user-selected");
+
+        if (userSequence.length === memoryPatterns[currentLevel].length) {
+            finishLevel();
+        }
+    }
+
+    function finishLevel() {
+
+        gameActive = false;
+
+        let completionTime = (Date.now() - memoryStartTime) / 1000;
+
+        fetch("{% url 'submit_game2' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:
+                `user_sequence=${JSON.stringify(userSequence)}`
+                + `&correct_pattern=${JSON.stringify(memoryPatterns[currentLevel])}`
+                + `&completion_time=${completionTime}`
+                + `&level=${currentLevel}`
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            completedLevels++;
+
+            showLevelCompletionMessage(currentLevel);
+
+            if (completedLevels >= maxLevels) {
+
+                setTimeout(() => {
+                    document.getElementById("final-submit-btn").disabled = false;
+                }, 4000);
+
+                return;
+            }
+
+            setTimeout(() => {
+                currentLevel++;
+                updateLevelDisplay();
+                resetBlocks();
+            }, 4000);
+
+        });
+    }
+
+    function resetBlocks() {
+        userSequence = [];
+        document.querySelectorAll(".memory-block").forEach(b => {
+            b.classList.remove("user-selected");
+            b.classList.remove("active-highlight");
+        });
+    }
+
+    function showLevelCompletionMessage(level) {
+
+        let message = "";
+
+        if (level === 1) message = "Level 1 Completed!";
+        else if (level === 2) message = "Level 2 Completed!";
+        else message = "Game 2 Completed!";
+
+        let indicator = document.getElementById("level-indicator");
+        indicator.innerText = message;
+    }
+
+    function finishAssessment() {
+
+        fetch("{% url 'finalize_assessment' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            }
+        });
+    }
+
+    updateLevelDisplay();
+</script>
+
+<script>
+    function handleSidebarAction() {
+        fetch("{% url 'finalize_assessment' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            }
+        });
+    }
+</script>
+
+{% endblock %}

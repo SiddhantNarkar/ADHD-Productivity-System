@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+        <title>ADHD Productivity System</title>
+        <link rel="stylesheet" href="{% static 'css/point_based_rank_system.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Section Image -->
+    <section class="productivity-module-section">
+        <div class="productivity-module-image">
+            <img src="{% static 'images/productivity_module_hero_banner.png' %}"
+                 width="100%" class="productivity-module-img" alt="Home Image">
+        </div>
+    </section>
+
+
+    <!-- Stats Display section -->
+    <section class="stats-section mt-3">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h2>100+</h2>
+                <p>Active User</p>
+            </div>
+            <div class="stat-item">
+                <h2>30+</h2>
+                <p>Total Tests Conducted</p>
+            </div>
+            <div class="stat-item">
+                <h2>98%</h2>
+                <p>System Accuracy Rate</p>
+            </div>
+            <div class="stat-item">
+                <h2>10 Mins</h2>
+                <p>Average Test Time</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Productivity Model Section -->
+    <section class="productivity-test-section py-5 mt-5 mb-5">
+        <div class="container">
+
+            <div class="prod-custom d-flex justify-content-between align-items-center mb-5 mt-2">
+                <h2 class="productivity-test-title-custom m-0">How We Identify ADHD Pattern</h2>
+                <a href="{% url 'assessment_landing_page_view_urls' %}" class="productivity-test-btn-custom">Start Your Assessment Test</a>
+            </div>
+
+            <div class="productivity-test-mcq-section">
+                <div class="productivity-test-card">
+
+                    <!-- LEFT IMAGE -->
+                    <div class="productivity-test-image">
+                        <img src="{% static 'images/mcq_task_card.png' %}" alt="Productivity Test">
+                    </div>
+
+                    <!-- RIGHT CONTENT -->
+                    <div class="productivity-test-content">
+
+                        <span class="section-tag">Step 1: MCQ-Based Assessment</span>
+                        <h2>Question-Based ADHD Prediction Test</h2>
+                        <p class="section-desc">
+                            This assessment uses carefully designed multiple-choice questions to understand
+                            how you experience focus, attention, impulsivity, and mental organization in daily
+                            life. Your responses help identify consistent behavioral patterns that are commonly
+                            associated with ADHD, forming the foundation for personalized insights.
+                        </p>
+
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🧠</div>
+                                <h4>Attention Pattern Mapping</h4>
+
+                                <p> Identifies how consistently your focus shifts across tasks. </p>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">🧩</div>
+                                <h4>Impulse Response Analysis</h4>
+                                <p> Examines decision-making speed and reaction tendencies. </p>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">📊</div>
+                                <h4>Cognitive Consistency Tracking</h4>
+                                <p> Measures how stable your responses remain across similar scenarios. </p>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">🤝</div>
+                                <h4>Behavioral Signal Collection</h4>
+                                <p> Gathers key indicators linked to ADHD-related traits. </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="productivity-test-gamified-section">
+                <div class="productivity-test-card">
+
+                    <!-- LEFT CONTENT -->
+                    <div class="productivity-test-content">
+
+                        <span class="section-tag">Step 2: Gamified Behavioral Assessment</span>
+                        <h2>Game-Based ADHD Behavior Test</h2>
+
+                        <p class="section-desc">
+                            Through short interactive challenges, this test observes how you respond under different
+                            conditions involving focus, timing, and decision-making. These real-time behaviors help
+                            identify ADHD-related patterns that may not always appear in other ways.
+                        </p>
+
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⏱️</div>
+                                <h4>Real-Time Response Tracking</h4>
+                                <p>Measures reaction speed and timing consistency.</p>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">🎯</div>
+                                <h4>Attention Shift Detection</h4>
+                                <p>Observes how focus changes during tasks.</p>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">🛑</div>
+                                <h4>Impulse Control Measurement</h4>
+                                <p>Analyzes rapid or premature responses.</p>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">🔁</div>
+                                <h4>Behavioral Consistency Analysis</h4>
+                                <p>Tracks stability across repeated challenges.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT IMAGE -->
+                    <div class="productivity-test-image">
+                        <img src="{% static 'images/game_based_test.png' %}" alt="Gamified Productivity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Start Assessment Section -->
+    <section class="help-cta-section">
+        <div class="help-cta-card">
+            <h3>When You’re Ready, We’re Here</h3>
+            <h2>Start Your Assessment Test</h2>
+            <p> A simple test designed to help you understand how your mind works. </p>
+            <a href="{% url 'assessment_landing_page_view_urls' %}" class="help-cta-btn">Start Your Assessment Test</a>
+        </div>
+    </section>
+
+
+
+    <!-- Review Display Section -->
+    <section class="testimonial-section">
+        <div class="testimonial-header">
+            <h2>What Our Users Saying</h2>
+            <p> Users share how this assessment helped them recognize attention-related patterns
+                and gain meaningful insights without judgment or pressure.</p>
+        </div>
+        <div class="testimonial-viewport" id="viewport">
+            <div class="testimonial-track" id="track">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p> Outstanding logistics service! My shipment arrived on time with real-time
+                        tracking updates. Highly professional team.</p>
+                    <div class="user fixed-user">
+                        <div><strong>Guy Hawkins</strong></div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p> Exceptional service and on-time deliveries every time! The tracking system
+                        is highly accurate, and customer support is always helpful.</p>
+                    <div class="user fixed-user">
+                        <div><strong>Jidan.D</strong></div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p> Smooth experience from start to finish. Customer service is responsive,
+                        and deliveries are always on schedule. </p>
+                    <div class="user fixed-user">
+                        <div><strong>Jacob Cooper</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-nav">
+            <button id="prev">‹</button>
+            <button id="next">›</button>
+        </div>
+    </section>
+
+
+{% endblock %}

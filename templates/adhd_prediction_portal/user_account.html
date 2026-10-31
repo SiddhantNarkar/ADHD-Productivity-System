@@ -1,0 +1,438 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tz %}
+
+{% block title %}
+    <title>Account Page</title>
+    <link rel="stylesheet" href="{% static 'css/user_account.css' %}">
+    <link rel="stylesheet" href="{% static 'css/streak_system.css' %}">
+    <link rel="stylesheet" href="{% static 'css/point_based_rank_system.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- MAIN PROFILE SECTION (NEW WRAPPER) -->
+<section class="user_profile_section_wrapper">
+
+    <div class="profile_page_wrapper">
+
+        <!-- HEADER -->
+        <div class="profile_top_header">
+            <h2 class="profile_page_title">Profile</h2>
+
+            <!-- SETTINGS ICON -->
+            <div class="profile_settings_wrapper"
+                 onmouseover="showProfileDropdown()"
+                 onmouseout="hideProfileDropdown()">
+
+                <i class="fa fa-gear profile_settings_icon"></i>
+
+                <div id="profileSettingsDropdown" class="profile_settings_dropdown">
+                    <a href="{% url 'edit_profile_view_urls' %}">Edit Account</a>
+                    <a href="{% url 'change_password_view_urls' %}">Change Password</a>
+                    <a href="{% url 'delete_account_view_urls' %}">Delete Account</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function showProfileDropdown() {
+                document.getElementById("profileSettingsDropdown").style.display = "block";
+            }
+
+            function hideProfileDropdown() {
+                document.getElementById("profileSettingsDropdown").style.display = "none";
+            }
+        </script>
+
+        <!-- MAIN GRID -->
+        <div class="profile_main_layout">
+
+            <!-- LEFT SIDEBAR -->
+            <div class="profile_left_card">
+
+                <div class="profile_user_header">
+                    <img src="{{ user.profile_image.url }}" class="profile_user_avatar">
+                    <h3 class="profile_user_name">{{ user.full_name }}</h3>
+                    <p class="profile_user_id">{{ user.account_type }}</p>
+                </div>
+
+                <div class="profile_info_section">
+                    <h4 class="profile_section_title">About</h4>
+                    <p class="profile_info_text"><i class="bi bi-telephone-fill"></i> {{ user.phone }}</p>
+                    <p class="profile_info_text"><i class="bi bi-envelope-fill"></i> {{ user.email }}</p>
+                </div>
+
+                <div class="profile_info_section">
+                    <h4 class="profile_section_title">Address</h4>
+                    <p class="profile_info_text"><i class="bi bi-house-door-fill"></i> {{ user.complete_address }}</p>
+                    <p class="profile_info_text"><i class="bi bi-crosshair2"></i> {{ user.state }}</p>
+                    <p class="profile_info_text"><i class="bi bi-geo-alt-fill"></i> {{ user.country }}</p>
+                </div>
+
+                <div class="profile_info_section">
+                    <h4 class="profile_section_title">Other Details</h4>
+                    <p class="profile_info_text">Blood Group: {{ user.blood_group }}</p>
+                    <p class="profile_info_text">Gender: {{ user.gender }}</p>
+                    <p class="profile_info_text">DOB: {{ user.dob }}</p>
+                    <p class="profile_info_text">Occupation: {{ user.occupation }}</p>
+                </div>
+
+            </div>
+
+            <!-- RIGHT CONTENT -->
+            <div class="profile_right_content">
+
+                <!-- Job Information -->
+                <div class="profile_right_card">
+                    <div class="profile_card_header">
+                        <h3 class="profile_card_title">ADHD Assessment Test History</h3>
+                    </div>
+
+                    <table class="profile_job_table">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;">Session ID</th>
+                                <th style="text-align:center;">Date & Time</th>
+                                <th style="text-align:center;">Level</th>
+                                <th style="text-align:center;">Label</th>
+                                <th style="text-align:center;">Result</th>
+                                <th style="text-align:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if recent_reports %}
+
+                                {% for report in recent_reports %}
+                                <tr>
+                                    <td data-label="Session ID" style="text-align:center;">
+                                        {{ report.session.id }}
+                                    </td>
+
+                                    <td data-label="Date & Time" style="text-align:center;">
+                                        {{ report.generated_at|utc|date:"d-m-Y" }}&nbsp;&nbsp;&nbsp;&nbsp;{{ report.generated_at|utc|date:"H:i:s" }}
+                                    </td>
+
+                                    <td data-label="Level" style="text-align:center;">
+                                        Level-{{ report.severity_level_number }}
+                                    </td>
+
+                                    <td data-label="Label" style="text-align:center;">
+                                        {{ report.severity_label }}
+                                    </td>
+
+                                    <td data-label="Result" style="text-align:center;">
+                                        {% if report.severity_level_number == 0 %}
+                                            <span class="text-success">Negative</span>
+                                        {% else %}
+                                            <span class="text-danger">Positive</span>
+                                        {% endif %}
+                                    </td>
+                                    <td data-label="Action" style="text-align:center;">
+                                        <a href="{% url 'user_page_assessment_report_view_url' report.session.id %}" class="btn btn-success">
+                                            <i class="bi bi-file-earmark-text-fill"> Report </i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            {% else %}
+                                <tr>
+                                    <td colspan="6" style="text-align:center;">
+                                        No reports generated yet.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <!-- Activity + Compensation -->
+                <div class="profile_dual_cards">
+
+                    <!-- Streak System Card -->
+                    <div class="profile_right_card">
+                        <div class="user_login_streak_card">
+
+                            <!-- Streak Info Icon -->
+                            <div class="streak_info_wrapper"
+                                 onmouseover="showStreakInfoDropdown()"
+                                 onmouseout="hideStreakInfoDropdown()">
+
+                                <i class="bi bi-info-circle streak_info_icon"></i>
+
+                                <div id="StreakInfoDropdown" class="streak_info_dropdown">
+                                    <p>
+                                        Your rank increases based on your continuous login streak.
+                                        Log in every day to progress through ranks:
+                                    </p>
+                                    <ul>
+                                        <li><strong>Bronze</strong> – 1+ Streaks: Getting started</li>
+                                        <li><strong>Silver</strong> – 10+ Streaks: Consistent effort</li>
+                                        <li><strong>Gold</strong> – 20+ Streaks: Strong habit formed</li>
+                                        <li><strong>Platinum</strong> – 35+ Streaks: Excellent consistency</li>
+                                        <li><strong>Diamond</strong> – 50+ Streaks: Elite dedication</li>
+                                    </ul>
+                                    <p class="streak_info_note">
+                                        Missing a day may reset your progress.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <script>
+                                function showStreakInfoDropdown() {
+                                    document.getElementById("StreakInfoDropdown").style.display = "block";
+                                }
+
+                                function hideStreakInfoDropdown() {
+                                    document.getElementById("StreakInfoDropdown").style.display = "none";
+                                }
+                            </script>
+
+                            <!-- TOP SECTION -->
+                            <div class="login_streak_top">
+                                <div class="login_streak_icon">🔥</div>
+                                <div class="login_streak_text">
+                                    <span class="login_streak_label">STREAK</span>
+                                    <h2 class="login_streak_count"> {{ streak.current_streak }} <span>Days</span></h2>
+                                </div>
+                            </div>
+
+                            <!-- STREAK HISTORY INFO -->
+                            <div class="streak_history_row">
+
+                                <div class="streak_history_item">
+                                    <span class="streak_history_label">Longest Streak</span>
+                                    <span class="streak_history_value">{{ streak.longest_streak }} Days</span>
+                                </div>
+
+                                <div class="streak_history_divider"></div>
+
+                                <div class="streak_history_item">
+                                    <span class="streak_history_label">Started On</span>
+                                    <span class="streak_history_value">{{ streak.longest_streak_end|date:"M d, Y" }}</span>
+                                </div>
+
+                                <div class="streak_history_divider"></div>
+
+                                <div class="streak_history_item">
+                                    <span class="streak_history_label">Ended On</span>
+                                    <span class="streak_history_value">
+                                        {% if streak.longest_streak_end %}
+                                            {{ streak.longest_streak_start|date:"M d, Y" }}
+                                        {% else %}
+                                            Ongoing
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <!-- MIDDLE SECTION (RANK PROGRESSIO) -->
+                            <div class="login_streak_rank_section">
+
+                                <div class="rank_progress_line">
+                                    <div class="rank_progress_fill" style="width: {{ streak_progress_percent }}%;"></div>
+                                </div>
+
+                                <div class="rank_steps">
+
+                                    <div class="rank_step {% if streak.current_rank == 'bronze' %}active{% elif streak.current_rank in 'silver gold platinum diamond' %}completed{% endif %}">
+                                        <div class="rank_icon bronze">
+                                            <img src="{% static 'images/bronze_rank.png' %}" alt="Bronze">
+                                        </div>
+                                        <span class="rank_label">Bronze</span>
+                                    </div>
+
+                                    <div class="rank_step {% if streak.current_rank == 'silver' %}active{% elif streak.current_rank in 'gold platinum diamond' %}completed{% endif %}">
+                                        <div class="rank_icon silver">
+                                            <img src="{% static 'images/silver_rank.png' %}" alt="Silver">
+                                        </div>
+                                        <span class="rank_label">Silver</span>
+                                    </div>
+
+                                    <div class="rank_step {% if streak.current_rank == 'gold' %}active{% elif streak.current_rank in 'platinum diamond' %}completed{% endif %}">
+                                        <div class="rank_icon gold">
+                                            <img src="{% static 'images/gold_rank.png' %}" alt="Gold">
+                                        </div>
+                                        <span class="rank_label">Gold</span>
+                                    </div>
+
+                                    <div class="rank_step {% if streak.current_rank == 'platinum' %}active{% elif streak.current_rank == 'diamond' %}completed{% endif %}">
+                                        <div class="rank_icon platinum">
+                                            <img src="{% static 'images/diamond_rank.png' %}" alt="Platinum">
+                                        </div>
+                                        <span class="rank_label">Platinum</span>
+                                    </div>
+
+                                    <div class="rank_step {% if streak.current_rank == 'platinum' %}active{% elif streak.current_rank == 'diamond' %}completed{% endif %}">
+                                        <div class="rank_icon diamond">
+                                            <img src="{% static 'images/platinum_rank.png' %}" alt="Diamond">
+                                        </div>
+                                        <span class="rank_label">Diamond</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Point Based Rank System Card -->
+                    <div class="profile_right_card">
+
+                        <!-- Point Based Rank System Card -->
+                        <div class="user_point_rank_system_card">
+
+                            <!-- Streak Info Icon -->
+                            <div class="rank_card_header">
+
+                                <!-- LEFT: Points -->
+                                <div class="rank_points_wrapper">
+                                    <span class="points_badge">Points: {{user.total_points}}</span>
+                                </div>
+
+                                <!-- RIGHT: Info -->
+                                <div class="rank_info_wrapper"
+                                     onmouseover="showPointBasedRankSystemInfoDropdown()"
+                                     onmouseout="hidePointBasedRankSystemInfoDropdown()">
+
+                                    <i class="bi bi-info-circle rank_info_icon"></i>
+
+                                    <div id="PointBasedRankSystemInfoDropdown" class="rank_info_dropdown">
+                                        <p>
+                                            Your rank increases based on your points which you earn from completing tasks.
+                                            Complete every task to progress through ranks:
+                                        </p>
+                                        <ul>
+                                            <li><strong>Bronze</strong> – 1+ Points: Getting started</li>
+                                            <li><strong>Silver</strong> – 100+ Points: Consistent effort</li>
+                                            <li><strong>Gold</strong> – 250+ Points: Strong habit formed</li>
+                                            <li><strong>Platinum</strong> – 400+ Points: Excellent consistency</li>
+                                            <li><strong>Diamond</strong> – 650+ Points: Elite dedication</li>
+                                        </ul>
+                                        <p class="rank_info_note">
+                                            Unlock new ranks by completing tasks daily.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                function showPointBasedRankSystemInfoDropdown() {
+                                    document.getElementById("PointBasedRankSystemInfoDropdown").style.display = "block";
+                                }
+
+                                function hidePointBasedRankSystemInfoDropdown() {
+                                    document.getElementById("PointBasedRankSystemInfoDropdown").style.display = "none";
+                                }
+                            </script>
+
+                            <!-- Rank Display SECTION -->
+                            <div class="point_rank_icon_section">
+                                <div class="point_rank_icon">
+
+                                    {% if rank == "bronze" %}
+                                        <img src="{% static 'images/bronze_meddle.png' %}" height="210px;" width="280px;" alt="Bronze">
+                                    {% elif rank == "silver" %}
+                                        <img src="{% static 'images/silver_meddle.png' %}" height="210px;" width="280px;" alt="Silver">
+                                    {% elif rank == "gold" %}
+                                        <img src="{% static 'images/gold_meddle.png' %}" height="210px;" width="280px;" alt="Gold">
+                                    {% elif rank == "platinum" %}
+                                        <img src="{% static 'images/platinum_meddle.png' %}" height="210px;" width="280px;" alt="Platinum">
+                                    {% elif rank == "diamond" %}
+                                        <img src="{% static 'images/diamond_meddle.png' %}" height="210px;" width="280px;" alt="Diamond">
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                            <!-- Update Rank Name Section -->
+                            <div class="level-name-display">
+                                <h3 style="color: #000000;">
+                                    <i class="bi bi-trophy-fill"></i>
+                                        {{ rank_display }} Member
+                                    <i class="bi bi-trophy-fill"></i>
+                                </h3>
+                            </div>
+
+
+                            <!-- Rank Progressbar SECTION -->
+                            <div class="login_streak_rank_section">
+
+                                <div class="rank_progress_line">
+                                    <div class="rank_progress_fill" style="width: {{ streak_progress_percent}}%;"></div>
+                                </div>
+
+                                <div class="rank_steps">
+
+                                    <!-- Bronze -->
+                                    <div class="rank_step
+                                        {% if rank == 'bronze' %}active
+                                        {% elif rank == 'silver' or rank == 'gold' or rank == 'platinum' or rank == 'diamond' %}completed
+                                        {% endif %}">
+                                        <div class="rank_icon bronze">
+                                            <img src="{% static 'images/bronze_meddle.png' %}" alt="Bronze">
+                                        </div>
+                                        <span class="rank_label">Bronze</span>
+                                    </div>
+
+                                    <!-- Silver -->
+                                    <div class="rank_step
+                                        {% if rank == 'silver' %}active
+                                        {% elif rank == 'gold' or rank == 'platinum' or rank == 'diamond' %}completed
+                                        {% endif %}">
+                                        <div class="rank_icon silver">
+                                            <img src="{% static 'images/silver_meddle.png' %}" alt="Silver">
+                                        </div>
+                                        <span class="rank_label">Silver</span>
+                                    </div>
+
+                                    <!-- Gold -->
+                                    <div class="rank_step
+                                        {% if rank == 'gold' %}active
+                                        {% elif rank == 'platinum' or rank == 'diamond' %}completed
+                                        {% endif %}">
+                                        <div class="rank_icon gold">
+                                            <img src="{% static 'images/gold_meddle.png' %}" alt="Gold">
+                                        </div>
+                                        <span class="rank_label">Gold</span>
+                                    </div>
+
+                                    <!-- Platinum -->
+                                    <div class="rank_step
+                                        {% if rank == 'platinum' %}active
+                                        {% elif rank == 'diamond' %}completed
+                                        {% endif %}">
+                                        <div class="rank_icon platinum">
+                                            <img src="{% static 'images/platinum_meddle.png' %}" alt="Platinum">
+                                        </div>
+                                        <span class="rank_label">Platinum</span>
+                                    </div>
+
+                                    <!-- Diamond -->
+                                    <div class="rank_step
+                                        {% if rank == 'diamond' %}active
+                                        {% endif %}">
+                                        <div class="rank_icon diamond">
+                                            <img src="{% static 'images/diamond_meddle.png' %}" alt="Diamond">
+                                        </div>
+                                        <span class="rank_label">Diamond</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

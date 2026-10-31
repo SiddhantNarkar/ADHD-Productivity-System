@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Assessment Progress | ADHD Productivity System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/progress_page.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="test-landing-section py-5 mt-5 mb-5">
+    <div class="container">
+        <div class="test-landing-section-card">
+            <div class="test-landing-card">
+
+                <!-- Content Side (LEFT now) -->
+                <div class="test-landing-card-content">
+                    <h2>Assessment Progress</h2>
+
+                    <p class="test-landing-desc">
+                        This assessment is completed in two short parts. You can move through each part
+                        at your own pace and take short breaks between sections if needed.
+                    </p>
+
+                    <!-- Part 1 -->
+                    <div class="test-landing-status-card
+                        {% if part1_status == 'Ready to Start' or part1_status == 'In Progress' %}active{% endif %}">
+                        <h4>Part 1: Question-Based Assessment</h4>
+                        <p>Status: <strong>{{ part1_status }}</strong></p>
+                    </div>
+
+                    <!-- Part 2 -->
+                    <div class="test-landing-status-card
+                        {% if part2_status == 'Ready to Start' or part2_status == 'In Progress' %}active{% endif %}">
+                        <h4>Part 2: Gamified Attention Task</h4>
+                        <p>Status: <strong>{{ part2_status }}</strong></p>
+
+                        {% if part2_status != "Locked" %}
+                            <span class="test-landing-note">
+                                You may take a short break before continuing.
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    {% if action_url %}
+                        <a href="{% url action_url %}" class="test-landing-btn mt-4">
+                            {{ action_text }}
+                        </a>
+                    {% endif %}
+                </div>
+
+                <!-- Image Side (RIGHT now) -->
+                <div class="test-landing-image">
+                    <img src="{% static 'images/assessment_pic2.png' %}" alt="Assessment Progress Overview">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

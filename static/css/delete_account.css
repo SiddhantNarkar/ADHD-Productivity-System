@@ -1,0 +1,140 @@
+/* Full Page Section */
+.delete-account-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card Box */
+#delete-account-Box {
+    max-width: 500px;
+    width: 100%;
+    background: linear-gradient(0deg, #ffffff 0%, #e6f7fb 100%);
+    border-radius: 25px;
+    padding: 45px 35px;
+    border: 5px solid #ffffff;
+    box-shadow: rgba(133,189,215,0.88) 0px 25px 30px -15px;
+    text-align: center;
+}
+
+/* Heading */
+.delete-account-title {
+    font-weight: 800;
+    font-size: 28px;
+    color: #1089d3;
+    margin-bottom: 20px;
+}
+
+/* Text */
+.delete-account-text {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.danger-text {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.warning-text {
+    color: #555;
+    font-size: 14px;
+}
+
+/* Form */
+.delete-account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Delete Button */
+.delete-account-btn {
+    width: 100%;
+    font-weight: bold;
+    background: #dc3545;
+    color: white;
+    padding: 14px;
+    border-radius: 18px;
+    border: none;
+    transition: 0.2s ease-in-out;
+}
+
+.delete-account-btn:hover {
+    background: #c82333;
+    transform: scale(1.02);
+}
+
+/* Cancel Button */
+.cancel-account-btn {
+    width: 100%;
+    font-weight: bold;
+    background: #e0e0e0;
+    color: #333;
+    padding: 14px;
+    border-radius: 18px;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.2s ease-in-out;
+}
+
+.cancel-account-btn:hover {
+    background: #d6d6d6;
+    transform: scale(1.02);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    #delete-account-Box {
+        padding: 35px 25px;
+    }
+
+    .delete-account-title {
+        font-size: 24px;
+    }
+}
+
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 18px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.toggle-password:hover {
+    color: #0d6efd;
+}
+
+.password-input {
+    width: 100%;
+    padding: 14px 18px;
+    margin-top: 18px;
+    border-radius: 16px;
+    border: none;
+    background: #ffffff;
+    font-size: 15px;
+    box-shadow: #cff0ff 0px 10px 12px -5px;
+}
+
+.password-input:focus {
+    outline: none;
+    border: 2px solid #12B1D1;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+

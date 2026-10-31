@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Websites Logo-->
+        <link rel="icon" type="image/png" href="{% static 'images/adhd_prediction_logo.png' %}">
+
+        <!-- important css pages-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/nav_sidebar.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/contact_us.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/about_us.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/chatbot.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/account_type.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/create_guardian_account.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/create_personal_account.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/adhd_productivity_module.css' %}">
+
+        <!-- important cdn's-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+        {% block title %}
+        <title>ADHD Productivity System</title>
+        {% endblock %}
+
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="mainNavbar">
+            <div class="container-fluid">
+
+            <!-- Brand -->
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="{% static 'images/adhd_prediction_logo.png' %}" width="30" height="30" alt="">
+                    <span class="ms-2 fw-bold">ADHD Productivity</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button class="navbar-toggler" type="button" id="toggleSidebar">
+                    <i class="bi bi-list text-white"></i>
+                </button>
+
+
+                <!-- Center Menu Items -->
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav gap-4" style="font-size: 18px;">
+                        <li class="nav-item"><a class="nav-link hover-white" href="{% url 'home_view_urls' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link hover-white" href="{% url 'adhd_productivity_module_view_urls' %}">ADHD Assessment Test</a></li>
+                        <li class="nav-item"><a class="nav-link hover-white" href="{% url 'about_us_urls' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link hover-white" href="{% url 'contact_us_urls' %}">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Login / CTA button -->
+                <a href="{% url 'login_view_urls' %}" style="font-size: 18px;" class="btn btn-light rounded-pill px-3 py-1 ms-3 nav-login-btn d-none d-lg-inline-flex">
+                    Login
+                </a>
+
+          </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="px-3 mb-3">
+                <h5 style="color: #ffffff"><i class="bi bi-list"></i>&nbsp;&nbsp; Menu</h5>
+            </div>
+            <hr style="border-color: rgba(255, 255, 255, 0.8);">
+            <ul class="nav flex-column px-2">
+                <li class="nav-item mb-2">
+                    <a href="{% url 'home_view_urls' %}" class="nav-link"><i class="bi bi-house"></i>&nbsp;&nbsp; Home</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{% url 'adhd_productivity_module_view_urls' %}" class="nav-link"><i class="bi bi-speedometer2"></i>&nbsp;&nbsp; ADHD Assessment Test</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{% url 'about_us_urls' %}" class="nav-link"><i class="bi bi-grid"></i>&nbsp;&nbsp; About Us</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{% url 'contact_us_urls' %}" class="nav-link"><i class="bi bi-people"></i>&nbsp;&nbsp; Contact Us</a>
+                </li>
+                <hr style="border-color: rgba(255, 255, 255, 0.8);">
+                <li class="nav-item mb-2">
+                    <a href="{% url 'login_view_urls' %}" class="nav-link"><i class="bi bi-door-open"></i>&nbsp;&nbsp; Login</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Overlay -->
+        <div id="overlay"></div>
+
+
+        <!-- Floating AI Chatbot Section -->
+        <section class="ai-chatbot-section">
+            <!-- Chat Widget -->
+            <div id="aiChatWidget" class="ai-chat-widget">
+                <div class="ai-chat-header">
+                    <span>AI Assistant</span>
+                    <div class="chat-header-actions">
+                        <button class="clear-chat" onclick="clearChatMemory()">clear chat</button>
+                        <button class="close-chat" onclick="toggleChat()">×</button>
+                    </div>
+                </div>
+
+                <div class="ai-chat-body" id="chatBody">
+                    <div class="chat-bubble bot">
+                        👋 Hi! I’m your AI assistant.<br>
+                        How can I help you today?
+                    </div>
+                </div>
+
+                <div class="ai-chat-input">
+                    <input
+                        type="text"
+                        id="chatInput"
+                        placeholder="Type your message..."
+                        onkeydown="handleEnter(event)"
+                    />
+                    <button class="send-btn" onclick="sendMessage()">➤</button>
+                </div>
+            </div>
+
+            <!-- Floating Button -->
+            <button class="ai-chat-toggle-btn" onclick="toggleChat()">🤖</button>
+        </section>
+
+
+        {% block content %}
+        {% endblock %}
+
+        <!-- footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-logo">
+                            <img src="{% static 'images/adhd_prediction_logo.png' %}" alt="ADHD Productivity System">
+                            <div>
+                                <h5 class="m-0">ADHD Productivity System</h5>
+                            </div>
+                        </div>
+                        <p style="text-align: justify;">ADHD Prediction System is an AI-based tool designed to recognize
+                            attention and productivity patterns, helping users identify possible ADHD symptoms early and
+                            improve their focus, organization, and daily performance, to support better self-understanding
+                            and timely professional guidance.</p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h5>Contact Info</h5>
+                        <p>Address: xx, Abc Park, Pune, India </p>
+                        <p>Linkedin: linkedin.com/abc</p>
+                        <p>Twitter: twitter.com/abc</p>
+                        <p>Email: info@abc.com</p>
+                        <p>Phone: +91 1234567890</p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h5>Explore Portal</h5>
+                        <p><a href="{% url 'home_view_urls' %}">Home</a></p>
+                        <p><a href="{% url 'login_view_urls' %}">ADHD Productivity Module</a></p>
+                        <p><a href="{% url 'login_view_urls' %}">Personalized Plan</a></p>
+                        <p><a href="{% url 'about_us_urls' %}">About US</a></p>
+                        <p><a href="{% url 'contact_us_urls' %}">Contact Us</a></p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h5>Useful Links</h5>
+                        <p><a href="https://en.wikipedia.org/wiki/Attention_deficit_hyperactivity_disorder" target="_blank">wikipedia.org</a></p>
+                        <p><a href="https://www.psychiatry.org/patients-families/adhd/what-is-adhd" target="_blank">psychiatry.org</a></p>
+                        <p><a href="https://medlineplus.gov/attentiondeficithyperactivitydisorder.html" target="_blank">medlineplus.gov</a></p>
+                        <p><a href="https://www.nimh.nih.gov/health/topics/attention-deficit-hyperactivity-disorder-adhd" target="_blank">nimh.nih.gov</a></p>
+                        <p><a href="https://www.cdc.gov/adhd/" target="_blank">cdc.gov</a></p>
+                    </div>
+                </div>
+
+                <div class="footer-bottom mt-4">
+                    <p class="mb-0">©2025 ADHD Productivity System. All rights reserved</p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="{% static 'javascript/navbar.js' %}"></script>
+        <script src="{% static 'javascript/nav_sidebar.js' %}"></script>
+        <script src="{% static 'javascript/chatbot.js' %}"></script>
+        <script src="{% static 'javascript/account_type.js' %}"></script>
+        <script src="{% static 'javascript/personal_account.js' %}"></script>
+        <script src="{% static 'javascript/guardian_account.js' %}"></script>
+        <script src="{% static 'javascript/contactus.js' %}"></script>
+        <script src="{% static 'javascript/adhd_test.js' %}"></script>
+    </body>
+</html>

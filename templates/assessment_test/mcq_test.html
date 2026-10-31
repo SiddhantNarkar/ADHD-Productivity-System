@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>ADHD Productivity System</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/mcq_test.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="mcq-section py-5 mt-5 mb-5">
+    <div class="container">
+        <div class="mcq-section-card">
+            <div class="mcq-card">
+
+                <div class="mcq-main">
+
+                    <div class="mcq-header">
+                        <div>
+                            <h2 class="mcq-title">Question-Based Assessment</h2>
+                            <p class="mcq-subtitle">Answer based on your usual experiences</p>
+                        </div>
+
+                        <div class="mcq-language">
+                            <form method="GET">
+                                <label>Language</label>
+                                <select name="language" onchange="this.form.submit()">
+                                    <option value="">Select Language</option>
+                                    <option value="English" {% if selected_language == "English" %}selected{% endif %}>English</option>
+                                    <option value="Hindi" {% if selected_language == "Hindi" %}selected{% endif %}>Hindi</option>
+                                    <option value="Marathi" {% if selected_language == "Marathi" %}selected{% endif %}>Marathi</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+
+                    {% if questions_queryset %}
+
+                        <p class="mcq-question-count">
+                            Question <span id="current-index">1</span> of {{ questions_queryset|length }}
+                        </p>
+
+                        <h3 id="question-text" class="mcq-question-text"></h3>
+                        <div id="options-container" class="mcq-options"></div>
+
+                        <p class="mcq-note">There are no right or wrong answers.</p>
+
+                        <div class="mcq-navigation">
+                            <button class="mcq-btn secondary" onclick="prevQuestion()">Back</button>
+                            <button class="mcq-btn primary" onclick="nextQuestion()">Next</button>
+                        </div>
+
+                    {% else %}
+                        <p>Please select a language to begin.</p>
+                    {% endif %}
+                </div>
+
+                <aside class="mcq-sidebar">
+
+                    <h4 class="mcq-sidebar-title">Questions</h4>
+
+                    <div class="mcq-question-grid">
+                        {% for q in questions_queryset %}
+                            <span class="mcq-q {% if q.id in answered_ids %}answered{% endif %}"
+                                  onclick="goToQuestion({{ forloop.counter0 }})">
+                                {{ forloop.counter }}
+                            </span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mcq-states">
+                        <div><span class="state-box not-answered"></span> Not answered</div>
+                        <div><span class="state-box answered"></span> Answered</div>
+                        <div><span class="state-box current"></span> Current</div>
+                    </div>
+
+                    <button id="submit-btn"
+                            onclick="submitMCQ()"
+                            class="mcq-submit-btn"
+                            {% if questions_queryset|length != answered_ids|length %}disabled{% endif %}>
+                        Submit Assessment
+                    </button>
+
+                </aside>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+let questions = JSON.parse('{{ questions_json|escapejs }}');
+let answeredIds = {{ answered_ids|safe }};
+let answerMap = JSON.parse('{{ answer_map_json|escapejs }}');
+let currentIndex = 0;
+
+function renderQuestion() {
+    let q = questions[currentIndex];
+
+    document.getElementById("current-index").innerText = currentIndex + 1;
+    document.getElementById("question-text").innerText = q.question_text;
+
+    let container = document.getElementById("options-container");
+    container.innerHTML = "";
+
+    ["A","B","C","D"].forEach(letter => {
+
+        let checked = answerMap[q.id] === letter ? "checked" : "";
+
+        container.innerHTML += `
+            <label class="mcq-option">
+                <input type="radio"
+                       name="q${q.id}"
+                       ${checked}
+                       onclick="saveAnswer(${q.id}, '${letter}')">
+                <span>${q["option_" + letter.toLowerCase()]}</span>
+            </label>
+        `;
+    });
+
+    updateGrid();
+}
+
+function nextQuestion() {
+    if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+    }
+}
+
+function prevQuestion() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+    }
+}
+
+function goToQuestion(index) {
+    currentIndex = index;
+    renderQuestion();
+}
+
+function updateGrid() {
+
+    let gridItems = document.querySelectorAll(".mcq-q");
+
+    gridItems.forEach((el, index) => {
+
+        el.classList.remove("active");
+
+        if (index === currentIndex) {
+            el.classList.add("active");
+        }
+    });
+}
+
+function saveAnswer(questionId, selectedOption) {
+
+    fetch("{% url 'save_mcq_answer' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `question_id=${questionId}&selected_option=${selectedOption}`
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        answerMap[questionId] = selectedOption;
+
+        if (!answeredIds.includes(questionId)) {
+            answeredIds.push(questionId);
+        }
+
+        document.querySelectorAll(".mcq-q").forEach((el, index) => {
+            if (questions[index].id === questionId) {
+                el.classList.add("answered");
+            }
+        });
+
+        if (data.answered_count === data.total_questions) {
+            document.getElementById("submit-btn").disabled = false;
+        }
+    });
+}
+
+function submitMCQ() {
+    fetch("{% url 'submit_mcq' %}", {
+        method: "POST",
+        headers: { "X-CSRFToken": "{{ csrf_token }}" }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.redirect_url) {
+            window.location.href = data.redirect_url;
+        }
+    });
+}
+
+if (questions.length > 0) {
+    renderQuestion();
+}
+</script>
+
+
+{% endblock %}

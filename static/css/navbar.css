@@ -1,0 +1,39 @@
+/* Transparent navbar with dark overlay */
+#mainNavbar {
+    background: rgba(0, 0, 0, 0.20) !important;
+    backdrop-filter: blur(10px); /* ✅ Modern frosted look */
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Brand name always white */
+.navbar-brand span {
+    color: white !important;
+}
+
+/* Menu items + hover */
+.nav-link.hover-white {
+    color: white !important;
+    padding: 8px 14px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+.nav-link.hover-white:hover {
+    background: rgba(255, 255, 255, 0.85);
+    color: black !important;
+}
+
+/* LOGIN button matching style */
+.nav-login-btn {
+    color: white !important;
+    background: transparent !important;
+    border-radius: 5px;
+    border: none !important;
+    padding: 8px 14px;
+    transition: 0.3s ease;
+}
+.nav-login-btn:hover {
+    background: rgba(255, 255, 255, 0.85) !important;
+    color: black !important;
+}

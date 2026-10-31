@@ -1,0 +1,497 @@
+/* Default large screens */
+.home-img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 7 / 3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile screens only */
+@media (max-width: 768px) {
+    .home-img {
+        width: 100%;
+        height: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+/* Extra-small screens */
+@media (max-width: 500px) {
+    .home-img {
+        width: 100%;
+        height: 300px;
+    }
+}
+
+/* custom card styling */
+.card-section-custom {
+    background: #fff;
+    padding: 80px 0;
+}
+
+/* Responsive Title*/
+.title-custom {
+    font-weight: 700;
+    color: #084298;
+    font-size: 46px;
+    line-height: 1.2;
+}
+
+/* Reduce title size on tablets */
+@media (max-width: 992px) {
+    .title-custom {
+        font-size: 38px;
+    }
+}
+
+/* Reduce more for mobile */
+@media (max-width: 768px) {
+    .title-custom {
+        font-size: 26px;
+    }
+}
+
+/* Fully shrink for tiny screens */
+@media (max-width: 500px) {
+    .title-custom {
+        font-size: 20px;
+    }
+}
+
+/* Smart Button Style */
+.action-btn-custom {
+    background: #0046a7;
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+    white-space: nowrap;
+}
+
+.action-btn-custom:hover {
+    background: #002f75;
+    transform: translateY(-2px);
+}
+
+/* Card Design */
+.info-card-custom {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e3e7ec;
+    padding: 35px 30px;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.info-card-custom:hover {
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.09);
+    transform: translateY(-6px);
+}
+
+/* Icon Centering Update */
+.card-icon-custom {
+    width: 75px;
+    margin: 0 auto 22px auto;
+    display: block;
+}
+
+/* Card Heading */
+.card-heading-custom {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f2a54;
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+/* Card description text */
+.card-text-custom {
+    font-size: 16.5px;
+    color: #516178;
+    line-height: 1.55;
+    text-align: justify;
+}
+
+/* Extra tweaks: Better spacing for mobiles */
+@media (max-width: 768px) {
+    .card-text-custom {
+        font-size: 16px;
+        text-align: justify;
+    }
+    .action-btn-custom {
+        font-size: 16px;
+        padding: 12px 22px;
+    }
+}
+
+
+
+
+/* ADHD Symptoms Section css */
+.adhd-symptoms-section {
+    background-color: #A7C898;
+    color: #ffffff;
+    padding: 60px 0;
+}
+
+.adhd-title {
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.adhd-card {
+    position: relative;
+    background: #2b2d30;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 2 / 3;
+    transition: transform 0.3s ease;
+}
+
+.adhd-card:hover {
+    transform: translateY(-5px);
+}
+
+.adhd-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.adhd-name {
+    position: absolute;
+    bottom: 12px;
+    left: 15px;
+    right: 15px;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    color: #ffffff;
+}
+
+
+
+
+
+/* ADHD Information Section */
+.adhd-information-section {
+  padding: 60px 20px;
+}
+
+/* Layout container */
+.adhd-information-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+/* Left Column */
+.adhd-information-left {
+  flex: 1 1 40%;
+  min-width: 280px;
+}
+
+.adhd-information-heading {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #0d47a1;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adhd-information-subtitle {
+  display: inline-block; /* makes it flow naturally under heading */
+  background-color: #0d47a1;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 2.2rem;
+  margin-top: 10px;
+  width: auto;
+  text-align: center; /* centers text inside the blue box */
+}
+
+/* Right Column */
+.adhd-information-right {
+  flex: 1 1 55%;
+  min-width: 300px;
+}
+
+.adhd-information-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+.adhd-information-text {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
+/* Button */
+.adhd-try-btn {
+  display: inline-block;
+  background-color: #0d6efd;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 30px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.adhd-try-btn:hover {
+  background-color: #084298;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .adhd-information-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .adhd-information-subtitle {
+    margin: 10px auto 0;
+  }
+
+  .adhd-information-right {
+    text-align: center;
+  }
+
+  .adhd-try-btn {
+    margin: 0 auto;
+  }
+}
+
+
+
+
+
+/* ----------------------- */
+
+
+.adhd-system-works-section {
+  background: #A7C898;
+  padding: 80px 0;
+  font-family: inherit;
+}
+
+.adhd-system-works-container {
+  width: 90%;
+  max-width: 1250px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: start;
+  align-items: center;
+}
+
+.adhd-system-works-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;   /* Horizontal center */
+  text-align: center;        /* Ensures text is centered */
+}
+
+/* RIGHT TIMELINE SCROLL SECTION */
+.adhd-system-works-timeline {
+  max-height: 420px; /* shows only 3 steps approx */
+  overflow-y: auto;
+  padding-right: 20px; /* space for scrollbar */
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+.adhd-system-works-timeline::-webkit-scrollbar {
+  width: 8px;
+}
+
+.adhd-system-works-timeline::-webkit-scrollbar-thumb {
+  background: #084298;
+  border-radius: 6px;
+}
+
+.adhd-system-works-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.adhd-system-works-icon-box {
+  width: 80px;
+  height: 70px;
+  padding: 10px 15px;
+  background: #084298;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adhd-system-works-icon-box img {
+  width: 100%;
+  height: 100%;
+}
+
+.adhd-system-works-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #111;
+}
+
+.adhd-system-works-content p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.adhd-system-works-line {
+  border-left: 2px dotted #4b008b;
+  height: 50px;
+  margin: 10px 0 10px 29px;
+}
+
+/* Responsive Layout */
+@media (max-width: 900px) {
+  .adhd-system-works-container {
+    grid-template-columns: 1fr;
+  }
+  .adhd-system-works-timeline {
+    max-height: 380px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.adhd-contact-us-section {
+  background: #ffffff;
+}
+
+.adhd-contact-us-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #084298;
+  margin-bottom: 30px;
+}
+
+.adhd-contact-us-image-wrap {
+  margin-top: 20px;
+}
+
+.adhd-contact-us-image {
+  width: 100%;
+  border-radius: 0px;
+  object-fit: cover;
+}
+
+/* Form Label */
+.adhd-contact-us-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* UNDERLINE STYLE for Name, Email, Contact Number */
+.adhd-contact-us-input {
+  border: none !important;
+  border-bottom: 1.5px solid #ccc !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  box-shadow: none !important;
+  transition: 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.adhd-contact-us-input:focus {
+  border-bottom-color: #084298 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* FULL BOX for MESSAGE Only */
+.adhd-contact-us-textarea {
+  border: 1.5px solid #ccc !important;
+  border-radius: 6px !important;
+  padding: 12px !important;
+  background: #fff !important;
+  resize: vertical;
+  font-size: 0.95rem;
+  box-shadow: none !important;
+}
+
+.adhd-contact-us-textarea:focus {
+  border-color: #084298 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Button */
+.adhd-contact-us-btn {
+  background: #0046a7;
+  color: #ffffff;
+  padding: 10px 28px;
+  border-radius: 40px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+  white-space: nowrap;
+  border: none;
+  display: inline-block;
+}
+
+.adhd-contact-us-btn:hover {
+  background: #002f75;
+  transform: translateY(-2px);
+}
+
+/* Responsive fine-tuning */
+@media (max-width: 768px) {
+  .adhd-contact-us-title {
+    text-align: center;
+  }
+  .adhd-contact-us-image-wrap {
+    text-align: center;
+  }
+}
